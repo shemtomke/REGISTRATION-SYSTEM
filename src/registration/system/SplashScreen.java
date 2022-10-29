@@ -117,13 +117,11 @@ public class SplashScreen extends javax.swing.JFrame {
         //</editor-fold>
 
         SplashScreen splashScreen = new SplashScreen();
-        //login screen after some seconds
-        
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SplashScreen().setVisible(true);
+                splashScreen.setVisible(true);
             }
         });
         
@@ -143,9 +141,10 @@ public class SplashScreen extends javax.swing.JFrame {
             
         }
         
-        new SplashScreen().setVisible(false);
-        splashScreen.dispose();
+        //set active login screen and inactive the splash screen
+        splashScreen.setVisible(false);
         loginScreen.setVisible(true);
+        splashScreen.dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
