@@ -4,6 +4,8 @@
  */
 package registration.system;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author SHEM TOM
@@ -77,11 +79,9 @@ public class LoginScreen extends javax.swing.JFrame {
 
         usernameField.setBackground(new java.awt.Color(255, 255, 255));
         usernameField.setForeground(new java.awt.Color(0, 0, 0));
-        usernameField.setText("username");
 
         passwordField.setBackground(new java.awt.Color(255, 255, 255));
         passwordField.setForeground(new java.awt.Color(0, 0, 0));
-        passwordField.setText("password");
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordFieldActionPerformed(evt);
@@ -162,7 +162,38 @@ public class LoginScreen extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
+        // When the user has not insert any data to the form
         
+        StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
+        try 
+            {
+                //Fetch Values from Database
+                /*String userTable = "SELECT * FROM user WHERE username = ? AND password = ?";
+                ps = connection.prepareStatement(userTable);
+                ps.setString(1, userNameTxt.getText());
+                ps.setString(2, passwordField.getText());
+                rs = ps.executeQuery();*/
+
+                /*if(rs.next())
+                {
+                    //Correct details
+                    JOptionPane.showMessageDialog(null, "Successfully Logged In!");
+                    
+                    //close login form
+                    //this.dispose();
+                    
+                    //if user is employee then move to employee else student
+                    //new WelcomeForm().show();
+                }*/
+            } 
+            catch (Exception e) 
+            {
+                JOptionPane.showMessageDialog(null, "Invalid Details!");
+                
+                //clear the form automatically
+                usernameField.setText("");
+                passwordField.setText("");
+            }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
@@ -202,6 +233,9 @@ public class LoginScreen extends javax.swing.JFrame {
                 new LoginScreen().setVisible(true);
             }
         });
+        
+        //load student or employee
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
