@@ -4,7 +4,11 @@
  */
 package registration.system;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import java.sql.Statement;
 
 /**
  *
@@ -12,11 +16,19 @@ import javax.swing.JOptionPane;
  */
 public class LoginScreen extends javax.swing.JFrame {
 
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Statement st = null;
+    
+    public String loginDetails;
+    
     /**
      * Creates new form LoginScreen
      */
     public LoginScreen() {
         initComponents();
+        connection = ConnectionDatabase.DbConnection();
     }
 
     /**
@@ -165,31 +177,57 @@ public class LoginScreen extends javax.swing.JFrame {
         // When the user has not insert any data to the form
         
         StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
+        form adminNew = new form();
+        //Actor actor = new Actor();
+        
+        //Login
+        String studentTable = "SELECT * FROM student WHERE regno = ?";
+        //String advisorTable = "SELECT * FROM advisor WHERE advisorID = ? AND advisorpassword = ?";
+        String adminTable = "SELECT * FROM adminoffice WHERE adminID = ?";
+        
         try 
             {
-                //Fetch Values from Database
-                /*String userTable = "SELECT * FROM user WHERE username = ? AND password = ?";
-                ps = connection.prepareStatement(userTable);
-                ps.setString(1, userNameTxt.getText());
-                ps.setString(2, passwordField.getText());
-                rs = ps.executeQuery();*/
-
-                /*if(rs.next())
+                ps = connection.prepareStatement(studentTable);
+                //ps = connection.prepareStatement(adminTable);
+                
+                ps.setString(1, usernameField.getText());
+                
+                //got access to the specific row where the user has entered data
+                loginDetails = usernameField.getText();
+                
+                ps.setString(1, passwordField.getText());
+                rs = ps.executeQuery();
+                
+                if(rs.next())
                 {
                     //Correct details
                     JOptionPane.showMessageDialog(null, "Successfully Logged In!");
-                    
                     //close login form
-                    //this.dispose();
+                    this.setVisible(false);
+                    this.dispose();
+
+                    studentHomeDashBoard.show();
                     
-                    //if user is employee then move to employee else student
-                    //new WelcomeForm().show();
-                }*/
-            } 
-            catch (Exception e) 
+                    /*if(loginDetails.startsWith("S")) //student login
+                    {
+                        //if user is employee then move to employee else student
+                        studentHomeDashBoard.show();
+                    }
+                    else if(loginDetails.startsWith("E/ADMIN")) //admin login
+                    {
+                        adminNew.show();
+                    }
+                    else if(loginDetails.startsWith("E/R")) //registrar login
+                    {
+                        
+                    }*/
+                }
+            }
+            catch (Exception e)
             {
-                JOptionPane.showMessageDialog(null, "Invalid Details!");
-                
+                //Incorrect Details
+                JOptionPane.showMessageDialog(null, e);
+
                 //clear the form automatically
                 usernameField.setText("");
                 passwordField.setText("");
@@ -234,10 +272,8 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
         
-        //load student or employee
-        
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JLabel UsernameLabel;
