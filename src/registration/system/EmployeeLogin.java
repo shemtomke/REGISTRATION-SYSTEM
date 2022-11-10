@@ -199,8 +199,6 @@ public class EmployeeLogin extends javax.swing.JFrame {
         // When the user has not insert any data to the form
         
         StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
-        form adminNew = new form();
-        //Actor actor = new Actor();
         
         //Login
         String studentTable = "SELECT * FROM student WHERE regno = ? AND studentPassword = ?";
@@ -245,7 +243,7 @@ public class EmployeeLogin extends javax.swing.JFrame {
                     }
                     else if(loginDetails.startsWith("E/ADMIN")) //admin login
                     {
-                        adminNew.show();
+                        
                     }
                 }
             }
