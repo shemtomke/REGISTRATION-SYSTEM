@@ -1,7 +1,7 @@
 package registration.system;
 
-import registration.system.LoginScreen;
-import registration.system.UpdateForm;
+import registration.system.StudentLogin;
+import registration.system.RegistrarUpdate;
 import registration.system.searchStudentForm;
 
 /*
@@ -363,7 +363,7 @@ public class form extends javax.swing.JFrame {
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         // TODO add your handling code here:
 
-        LoginScreen loginScreen = new LoginScreen();
+        StudentLogin loginScreen = new StudentLogin();
 
         try {
             loginScreen.setVisible(true);
@@ -409,6 +409,9 @@ public class form extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

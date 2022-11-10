@@ -38,107 +38,85 @@ public class StudentUnit extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        homeButton1 = new javax.swing.JButton();
-        unitButton1 = new javax.swing.JButton();
-        ExamsButton1 = new javax.swing.JButton();
-        logOutButton1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         yearTxt = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableUnits = new javax.swing.JTable();
         registerButton = new javax.swing.JButton();
+        yearTxt1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        registerButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableUnits1 = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        homeBtn = new javax.swing.JMenu();
+        HomeBtn = new javax.swing.JMenuItem();
+        UnitsBtn = new javax.swing.JMenuItem();
+        FeeBtn = new javax.swing.JMenuItem();
+        ExamsBtn = new javax.swing.JMenuItem();
+        progressBtn = new javax.swing.JMenuItem();
+        logOut = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 255));
-
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registration/system/kISII_SMALL-removebg-preview (1).png"))); // NOI18N
-
-        homeButton1.setBackground(new java.awt.Color(255, 255, 255));
-        homeButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        homeButton1.setForeground(new java.awt.Color(0, 0, 0));
-        homeButton1.setText("HOME");
-        homeButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                homeButton1ActionPerformed(evt);
-            }
-        });
-
-        unitButton1.setBackground(new java.awt.Color(153, 153, 255));
-        unitButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        unitButton1.setForeground(new java.awt.Color(0, 0, 0));
-        unitButton1.setText("UNITS");
-        unitButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unitButton1ActionPerformed(evt);
-            }
-        });
-
-        ExamsButton1.setBackground(new java.awt.Color(255, 255, 255));
-        ExamsButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ExamsButton1.setForeground(new java.awt.Color(0, 0, 0));
-        ExamsButton1.setText("EXAMINATION");
-        ExamsButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExamsButton1ActionPerformed(evt);
-            }
-        });
-
-        logOutButton1.setBackground(new java.awt.Color(255, 51, 51));
-        logOutButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        logOutButton1.setText("LOG OUT");
-        logOutButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logOutButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ExamsButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(unitButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(homeButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel17))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(logOutButton1)))
-                .addContainerGap(51, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel17)
-                .addGap(50, 50, 50)
-                .addComponent(homeButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(unitButton1)
-                .addGap(50, 50, 50)
-                .addComponent(ExamsButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                .addComponent(logOutButton1)
-                .addGap(40, 40, 40))
-        );
-
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
         yearTxt.setBackground(new java.awt.Color(255, 255, 255));
-        yearTxt.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        yearTxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         yearTxt.setForeground(new java.awt.Color(0, 0, 0));
-        yearTxt.setText("YEAR 1 SEM 1");
+        yearTxt.setText("REPORT SESSION");
 
         tableUnits.setBackground(new java.awt.Color(255, 255, 255));
         tableUnits.setForeground(new java.awt.Color(0, 0, 0));
         tableUnits.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Semester", "Date Reported", "Type"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tableUnits);
+
+        registerButton.setBackground(new java.awt.Color(0, 255, 0));
+        registerButton.setForeground(new java.awt.Color(0, 0, 0));
+        registerButton.setText("REGISTER");
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerButtonActionPerformed(evt);
+            }
+        });
+
+        yearTxt1.setBackground(new java.awt.Color(255, 255, 255));
+        yearTxt1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        yearTxt1.setForeground(new java.awt.Color(0, 0, 0));
+        yearTxt1.setText("YEAR 1 SEM 1");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        registerButton1.setBackground(new java.awt.Color(0, 255, 0));
+        registerButton1.setForeground(new java.awt.Color(0, 0, 0));
+        registerButton1.setText("REPORT");
+        registerButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerButton1ActionPerformed(evt);
+            }
+        });
+
+        tableUnits1.setBackground(new java.awt.Color(255, 255, 255));
+        tableUnits1.setForeground(new java.awt.Color(0, 0, 0));
+        tableUnits1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, "BIT100", "JAVA 1"},
                 {null, "BIT 200", "PYTHON"}
@@ -155,50 +133,143 @@ public class StudentUnit extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableUnits);
-
-        registerButton.setBackground(new java.awt.Color(0, 255, 0));
-        registerButton.setForeground(new java.awt.Color(0, 0, 0));
-        registerButton.setText("REGISTER");
+        jScrollPane2.setViewportView(tableUnits1);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(yearTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                        .addComponent(yearTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yearTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(registerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(22, Short.MAX_VALUE))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addComponent(yearTxt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(registerButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addComponent(yearTxt1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(registerButton)
-                .addGap(24, 24, 24))
+                .addGap(86, 86, 86))
         );
+
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuBar1.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+
+        homeBtn.setForeground(new java.awt.Color(0, 0, 0));
+        homeBtn.setText("=");
+        homeBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        homeBtn.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                homeBtnMenuSelected(evt);
+            }
+        });
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtnActionPerformed(evt);
+            }
+        });
+
+        HomeBtn.setText("HOME");
+        HomeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HomeBtnActionPerformed(evt);
+            }
+        });
+        homeBtn.add(HomeBtn);
+
+        UnitsBtn.setText("UNITS");
+        UnitsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UnitsBtnActionPerformed(evt);
+            }
+        });
+        homeBtn.add(UnitsBtn);
+
+        FeeBtn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
+        FeeBtn.setText("FEE");
+        FeeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FeeBtnActionPerformed(evt);
+            }
+        });
+        homeBtn.add(FeeBtn);
+
+        ExamsBtn.setText("EXAMS");
+        ExamsBtn.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                ExamsBtnMenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
+        ExamsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExamsBtnActionPerformed(evt);
+            }
+        });
+        homeBtn.add(ExamsBtn);
+
+        progressBtn.setText("PROGRESS");
+        progressBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                progressBtnActionPerformed(evt);
+            }
+        });
+        homeBtn.add(progressBtn);
+
+        logOut.setText("LOG OUT");
+        logOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutActionPerformed(evt);
+            }
+        });
+        homeBtn.add(logOut);
+
+        jMenuBar1.add(homeBtn);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -206,46 +277,95 @@ public class StudentUnit extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void homeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButton1ActionPerformed
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+        //bool is set to true
+        //if the user clicks this then set the button to uninteractible and also set a bool to true
+        //if true meaning it should display pending in the home dashboard
+        
+    }//GEN-LAST:event_registerButtonActionPerformed
+
+    private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerButton1ActionPerformed
+
+    private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         // TODO add your handling code here:
         StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
 
-        try {
-            studentHomeDashBoard.setVisible(true);
-            this.setVisible(false);
-            this.dispose();
-        } catch (Exception e) {
+        this.setVisible(false);
+        this.dispose();
 
-        }
-    }//GEN-LAST:event_homeButton1ActionPerformed
+        studentHomeDashBoard.show();
+    }//GEN-LAST:event_HomeBtnActionPerformed
 
-    private void unitButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unitButton1ActionPerformed
+    private void UnitsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnitsBtnActionPerformed
+        // TODO add your handling code here:
+        StudentUnit studentUnit = new StudentUnit();
 
-    }//GEN-LAST:event_unitButton1ActionPerformed
+        this.setVisible(false);
+        this.dispose();
 
-    private void ExamsButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExamsButton1ActionPerformed
+        studentUnit.show();
+    }//GEN-LAST:event_UnitsBtnActionPerformed
+
+    private void FeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeeBtnActionPerformed
+        // TODO add your handling code here:
+        StudentFee studentFee = new StudentFee();
+
+        this.setVisible(false);
+        this.dispose();
+
+        studentFee.show();
+    }//GEN-LAST:event_FeeBtnActionPerformed
+
+    private void ExamsBtnMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_ExamsBtnMenuKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExamsBtnMenuKeyPressed
+
+    private void ExamsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExamsBtnActionPerformed
         // TODO add your handling code here:
         Examination studentExam = new Examination();
-        try {
-            studentExam.setVisible(true);
-            this.setVisible(false);
-            this.dispose();
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_ExamsButton1ActionPerformed
 
-    private void logOutButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButton1ActionPerformed
+        this.setVisible(false);
+        this.dispose();
+
+        studentExam.show();
+    }//GEN-LAST:event_ExamsBtnActionPerformed
+
+    private void progressBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_progressBtnActionPerformed
         // TODO add your handling code here:
+        StudentProgress studentProgress = new StudentProgress();
 
-        LoginScreen loginScreen = new LoginScreen();
+        this.setVisible(false);
+        this.dispose();
 
-        try {
-            loginScreen.setVisible(true);
-            this.setVisible(false);
-            this.dispose();
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_logOutButton1ActionPerformed
+        studentProgress.show();
+    }//GEN-LAST:event_progressBtnActionPerformed
+
+    private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
+        // TODO add your handling code here:
+        StudentLogin login = new StudentLogin();
+
+        this.setVisible(false);
+        this.dispose();
+
+        login.show();
+
+    }//GEN-LAST:event_logOutActionPerformed
+
+    private void homeBtnMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_homeBtnMenuSelected
+        // TODO add your handling code here:
+    }//GEN-LAST:event_homeBtnMenuSelected
+
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+        // TODO add your handling code here:
+        StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
+
+        this.setVisible(false);
+        this.dispose();
+
+        studentHomeDashBoard.show();
+    }//GEN-LAST:event_homeBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,21 +406,31 @@ public class StudentUnit extends javax.swing.JFrame {
     public void PopulateCourses()
     {
         ArrayList<Programme>getCourses = new ArrayList<Programme>();
-        String courseQuery = "SELECT * FROM course";
+        
+        //populate all courses from the semester id of the student who logged in
+        String courseQuery = "SELECT Course_Code, Course_Name FROM course WHERE SemId = ";
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ExamsButton1;
-    private javax.swing.JButton homeButton1;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JMenuItem ExamsBtn;
+    private javax.swing.JMenuItem FeeBtn;
+    private javax.swing.JMenuItem HomeBtn;
+    private javax.swing.JMenuItem UnitsBtn;
+    private javax.swing.JMenu homeBtn;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton logOutButton1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JMenuItem logOut;
+    private javax.swing.JMenuItem progressBtn;
     private javax.swing.JButton registerButton;
+    private javax.swing.JButton registerButton1;
     private javax.swing.JTable tableUnits;
-    private javax.swing.JButton unitButton1;
+    private javax.swing.JTable tableUnits1;
     private javax.swing.JLabel yearTxt;
+    private javax.swing.JLabel yearTxt1;
     // End of variables declaration//GEN-END:variables
 }

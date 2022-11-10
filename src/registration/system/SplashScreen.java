@@ -125,13 +125,13 @@ public class SplashScreen extends javax.swing.JFrame {
             }
         });
         
-        LoginScreen loginScreen = new LoginScreen();
+        ChooseUser chooseUser = new ChooseUser();
         
         try
         {
             for (int i = 0; i < 100; i++) 
             {
-                Thread.sleep(40);
+                Thread.sleep(15);
                 splashScreen.progressBar.setValue(i);
             }
             
@@ -143,7 +143,7 @@ public class SplashScreen extends javax.swing.JFrame {
         
         //set active login screen and inactive the splash screen
         splashScreen.setVisible(false);
-        loginScreen.setVisible(true);
+        chooseUser.setVisible(true);
         splashScreen.dispose();
     }
 

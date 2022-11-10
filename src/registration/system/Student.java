@@ -23,8 +23,6 @@ public class Student //extend to programme
     
     public Student(String fullNames, String yearOfStudy, String school, String programme, String regNo)
     {
-        
-        
         this.fname = fullNames;
         this.year = yearOfStudy;
         this.schoolName =school;

@@ -14,12 +14,12 @@ import registration.system.StudentUnit;
  *
  * @author Brianpraise
  */
-public class Examination extends javax.swing.JFrame {
+public class StudentFee extends javax.swing.JFrame {
 
     /**
      * Creates new form Examination
      */
-    public Examination() {
+    public StudentFee() {
         initComponents();
     }
 
@@ -39,6 +39,12 @@ public class Examination extends javax.swing.JFrame {
         generateButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableExams = new javax.swing.JTable();
+        yearTxt1 = new javax.swing.JLabel();
+        generateButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TableExams1 = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        yearOfStudtDropDown1 = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         homeBtn = new javax.swing.JMenu();
         HomeBtn = new javax.swing.JMenuItem();
@@ -60,12 +66,12 @@ public class Examination extends javax.swing.JFrame {
         yearTxt.setBackground(new java.awt.Color(255, 255, 255));
         yearTxt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         yearTxt.setForeground(new java.awt.Color(0, 0, 0));
-        yearTxt.setText("Year Of Study");
+        yearTxt.setText("Fee Statement");
 
         yearOfStudtDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year 1 Sem 1", "Year 1 Sem 2", "Year 2 Sem 1", "Year 2 Sem 2", "Year 3 Sem 1", "Year 3 Sem 2", "Year 4 Sem 1", "Year 4 Sem 2" }));
 
         generateButton.setBackground(new java.awt.Color(102, 255, 102));
-        generateButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        generateButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         generateButton.setForeground(new java.awt.Color(0, 0, 0));
         generateButton.setText("GENERATE");
         generateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -77,23 +83,23 @@ public class Examination extends javax.swing.JFrame {
         TableExams.setBackground(new java.awt.Color(204, 255, 204));
         TableExams.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "UNIT CODE", "UNIT NAME", "GRADE"
+                "Date", "Ref", "Description", "Debit (KES)", "Credit (KES)", "Balance (KES)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -102,40 +108,95 @@ public class Examination extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TableExams);
 
+        yearTxt1.setBackground(new java.awt.Color(255, 255, 255));
+        yearTxt1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        yearTxt1.setForeground(new java.awt.Color(0, 0, 0));
+        yearTxt1.setText("Fee Structure");
+
+        generateButton1.setBackground(new java.awt.Color(102, 255, 102));
+        generateButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        generateButton1.setForeground(new java.awt.Color(0, 0, 0));
+        generateButton1.setText("GENERATE");
+        generateButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateButton1ActionPerformed(evt);
+            }
+        });
+
+        TableExams1.setBackground(new java.awt.Color(204, 255, 204));
+        TableExams1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Account", "Amount (KES)"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(TableExams1);
+
+        yearOfStudtDropDown1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year 1 Sem 1", "Year 1 Sem 2", "Year 2 Sem 1", "Year 2 Sem 2", "Year 3 Sem 1", "Year 3 Sem 2", "Year 4 Sem 1", "Year 4 Sem 2" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yearTxt)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(yearOfStudtDropDown1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(generateButton))
+                    .addComponent(yearTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(yearOfStudtDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(564, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(yearTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(generateButton)))
-                        .addGap(32, 32, 32))))
+                        .addGap(38, 38, 38)
+                        .addComponent(generateButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(yearTxt))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(generateButton)))
+                .addGap(7, 7, 7)
+                .addComponent(yearTxt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearOfStudtDropDown1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(yearOfStudtDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(yearTxt1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearOfStudtDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generateButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
@@ -241,6 +302,10 @@ public class Examination extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_generateButtonActionPerformed
 
+    private void generateButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_generateButton1ActionPerformed
+
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         // TODO add your handling code here:
         StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
@@ -337,20 +402,21 @@ public class Examination extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Examination.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentFee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Examination.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentFee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Examination.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentFee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Examination.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentFee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Examination().setVisible(true);
+                new StudentFee().setVisible(true);
             }
         });
     }
@@ -360,16 +426,22 @@ public class Examination extends javax.swing.JFrame {
     private javax.swing.JMenuItem FeeBtn;
     private javax.swing.JMenuItem HomeBtn;
     private javax.swing.JTable TableExams;
+    private javax.swing.JTable TableExams1;
     private javax.swing.JMenuItem UnitsBtn;
     private javax.swing.JButton generateButton;
+    private javax.swing.JButton generateButton1;
     private javax.swing.JMenu homeBtn;
     private javax.swing.JButton jButton6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JMenuItem logOut;
     private javax.swing.JMenuItem progressBtn;
     private javax.swing.JComboBox<String> yearOfStudtDropDown;
+    private javax.swing.JComboBox<String> yearOfStudtDropDown1;
     private javax.swing.JLabel yearTxt;
+    private javax.swing.JLabel yearTxt1;
     // End of variables declaration//GEN-END:variables
 }

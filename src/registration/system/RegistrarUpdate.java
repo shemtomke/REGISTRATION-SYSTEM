@@ -10,12 +10,12 @@ package registration.system;
  *
  * @author KEBENEI
  */
-public class UpdateForm extends javax.swing.JFrame {
+public class RegistrarUpdate extends javax.swing.JFrame {
 
     /**
      * Creates new form UpdateForm
      */
-    public UpdateForm() {
+    public RegistrarUpdate() {
         initComponents();
     }
 
@@ -139,7 +139,7 @@ public class UpdateForm extends javax.swing.JFrame {
         jLabel10.setText("Programme");
 
         schoolList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        schoolList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        schoolList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SIST", "SPASS", "SEDHURED", "SHS", "SASS" }));
         schoolList.setToolTipText("Enter New Programme");
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
@@ -157,7 +157,7 @@ public class UpdateForm extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("REG No");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Yes" }));
 
         UpdateButton.setBackground(new java.awt.Color(51, 255, 51));
         UpdateButton.setForeground(new java.awt.Color(0, 0, 0));
@@ -382,7 +382,7 @@ public class UpdateForm extends javax.swing.JFrame {
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         // TODO add your handling code here:
 
-        LoginScreen loginScreen = new LoginScreen();
+        StudentLogin loginScreen = new StudentLogin();
 
         try {
             loginScreen.setVisible(true);
@@ -409,20 +409,21 @@ public class UpdateForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarUpdate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarUpdate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarUpdate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarUpdate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateForm().setVisible(true);
+                new RegistrarUpdate().setVisible(true);
             }
         });
     }
