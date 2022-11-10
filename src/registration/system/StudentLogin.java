@@ -192,7 +192,7 @@ public class StudentLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         // When the user has not insert any data to the form
         
-        StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
+        StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
         
         //Login
         String studentTable = "SELECT * FROM student WHERE regno = ? AND studentPassword = ?";

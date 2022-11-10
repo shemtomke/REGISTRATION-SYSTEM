@@ -12,23 +12,25 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
- * @author Brianpraise
+ * @author SHEM TOM
  */
-public class StudentHomeDashBoard extends javax.swing.JFrame {
-    
+public class StudentHomeDashboard extends javax.swing.JFrame {
+
     Connection connection = null;
     PreparedStatementWrapper ps = null;
     ResultSet rs = null;
     
     String queryReg;
+    
     /**
-     * Creates new form StudentDashBoard
+     * Creates new form StudentHomeDashboard
      */
-    public StudentHomeDashBoard() {
-        connection = ConnectionDatabase.DbConnection();
+    public StudentHomeDashboard() {
         initComponents();
+        connection = ConnectionDatabase.DbConnection();
     }
 
     /**
@@ -40,16 +42,15 @@ public class StudentHomeDashBoard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSeparator1 = new javax.swing.JSeparator();
-        jPanel2 = new javax.swing.JPanel();
-        studentNameTxt = new javax.swing.JLabel();
-        regNoTxt = new javax.swing.JLabel();
-        schoolTxt = new javax.swing.JLabel();
-        programmeTxt = new javax.swing.JLabel();
-        programmeTxt1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TableExams = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         homeBtn = new javax.swing.JMenu();
         HomeBtn = new javax.swing.JMenuItem();
@@ -60,55 +61,45 @@ public class StudentHomeDashBoard extends javax.swing.JFrame {
         logOut = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("STUDENT DASHBOARD");
-        setBackground(new java.awt.Color(204, 255, 255));
         setResizable(false);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
-        studentNameTxt.setBackground(new java.awt.Color(0, 0, 0));
-        studentNameTxt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        studentNameTxt.setForeground(new java.awt.Color(0, 0, 0));
-        studentNameTxt.setText("Name");
-
-        regNoTxt.setBackground(new java.awt.Color(255, 255, 255));
-        regNoTxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        regNoTxt.setForeground(new java.awt.Color(0, 0, 0));
-        regNoTxt.setLabelFor(regNoTxt);
-        regNoTxt.setText("REG NO");
-
-        schoolTxt.setBackground(new java.awt.Color(204, 255, 204));
-        schoolTxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        schoolTxt.setForeground(new java.awt.Color(0, 0, 0));
-        schoolTxt.setText("SCHOOL");
-
-        programmeTxt.setBackground(new java.awt.Color(255, 255, 255));
-        programmeTxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        programmeTxt.setForeground(new java.awt.Color(0, 0, 0));
-        programmeTxt.setText("COURSE NAME");
-
-        programmeTxt1.setBackground(new java.awt.Color(255, 255, 255));
-        programmeTxt1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        programmeTxt1.setForeground(new java.awt.Color(0, 0, 0));
-        programmeTxt1.setText("YearSem");
-
-        jLabel1.setBackground(new java.awt.Color(255, 153, 102));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("FEE : 4000");
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 4, 4, 4, new java.awt.Color(0, 0, 0)));
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("NAME");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setBackground(new java.awt.Color(204, 204, 255));
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("REG NO");
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("YEAR");
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("COURSE NAME");
+
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("SCHOOL");
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("FEE : 10,000.00");
+        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(102, 102, 255)));
+
+        TableExams.setBackground(new java.awt.Color(204, 255, 204));
+        TableExams.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -132,53 +123,45 @@ public class StudentHomeDashBoard extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TableExams);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(studentNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(420, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(regNoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(programmeTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(programmeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(172, 172, 172)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(schoolTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(408, 408, 408)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(studentNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(regNoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(programmeTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(programmeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(schoolTxt)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
@@ -269,95 +252,94 @@ public class StudentHomeDashBoard extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(771, 563));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeeBtnActionPerformed
+    private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         // TODO add your handling code here:
-        StudentFee studentFee = new StudentFee();
-        
+        StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
+
         this.setVisible(false);
         this.dispose();
-        
-        studentFee.show();
-    }//GEN-LAST:event_FeeBtnActionPerformed
+
+        studentHomeDashBoard.show();
+    }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void UnitsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnitsBtnActionPerformed
         // TODO add your handling code here:
         StudentUnit studentUnit = new StudentUnit();
-        
+
         this.setVisible(false);
         this.dispose();
-        
+
         studentUnit.show();
     }//GEN-LAST:event_UnitsBtnActionPerformed
 
-    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+    private void FeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeeBtnActionPerformed
         // TODO add your handling code here:
-        StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
-        
+        StudentFee studentFee = new StudentFee();
+
         this.setVisible(false);
         this.dispose();
-        
-        studentHomeDashBoard.show();
-    }//GEN-LAST:event_homeBtnActionPerformed
 
-    private void homeBtnMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_homeBtnMenuSelected
-        // TODO add your handling code here:
-    }//GEN-LAST:event_homeBtnMenuSelected
+        studentFee.show();
+    }//GEN-LAST:event_FeeBtnActionPerformed
 
     private void ExamsBtnMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_ExamsBtnMenuKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_ExamsBtnMenuKeyPressed
 
+    private void ExamsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExamsBtnActionPerformed
+        // TODO add your handling code here:
+        Examination studentExam = new Examination();
+
+        this.setVisible(false);
+        this.dispose();
+
+        studentExam.show();
+    }//GEN-LAST:event_ExamsBtnActionPerformed
+
     private void progressBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_progressBtnActionPerformed
         // TODO add your handling code here:
         StudentProgress studentProgress = new StudentProgress();
-        
+
         this.setVisible(false);
         this.dispose();
-        
+
         studentProgress.show();
     }//GEN-LAST:event_progressBtnActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
         // TODO add your handling code here:
         StudentLogin login = new StudentLogin();
-        
+
         this.setVisible(false);
         this.dispose();
-        
+
         login.show();
-        
     }//GEN-LAST:event_logOutActionPerformed
 
-    private void ExamsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExamsBtnActionPerformed
+    private void homeBtnMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_homeBtnMenuSelected
         // TODO add your handling code here:
-        Examination studentExam = new Examination();
-        
-        this.setVisible(false);
-        this.dispose();
-        
-        studentExam.show();
-    }//GEN-LAST:event_ExamsBtnActionPerformed
+    }//GEN-LAST:event_homeBtnMenuSelected
 
-    private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
-        StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
-        
+        StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
+
         this.setVisible(false);
         this.dispose();
-        
+
         studentHomeDashBoard.show();
-    }//GEN-LAST:event_HomeBtnActionPerformed
+    }//GEN-LAST:event_homeBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,30 +358,24 @@ public class StudentHomeDashBoard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentHomeDashBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentHomeDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentHomeDashBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentHomeDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentHomeDashBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentHomeDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentHomeDashBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentHomeDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-           
-        StudentHomeDashBoard studentHome = new StudentHomeDashBoard();
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                studentHome.setVisible(true);
-                
+                new StudentHomeDashboard().setVisible(true);
             }
         });
-        
-        studentHome.DisplayStudent();
-        
     }
+
     public void DisplayStudent()
     {
         //GET NAME, YEAR, SCHOOL, PROGRAMME, REGNO
@@ -419,11 +395,11 @@ public class StudentHomeDashBoard extends javax.swing.JFrame {
                             
                     System.out.println(rs.getString("student.fname"));
                     
-                    studentNameTxt.setText(rs.getString("student.fname"));
+                    /*studentNameTxt.setText(rs.getString("student.fname"));
                     //YearTxt.setText(rs.getString("semester.Sem_Name"));
                     schoolTxt.setText(rs.getString("faculty.facultyName"));
                     programmeTxt.setText(rs.getString("semester.Sem_Name"));
-                    regNoTxt.setText(rs.getString("student.regno"));
+                    regNoTxt.setText(rs.getString("student.regno"));*/
                     
                     JOptionPane.showMessageDialog(null, rs.getString("fname") + rs.getString("regno"));
                 }
@@ -441,35 +417,29 @@ public class StudentHomeDashBoard extends javax.swing.JFrame {
     }
     public void GetRegNo(String reg)
     {
-        StudentHomeDashBoard studentHome = new StudentHomeDashBoard();
+        StudentHomeDashboard studentHome = new StudentHomeDashboard();
         
-        regNoTxt.setText(reg);
-        queryReg = regNoTxt.getText();
+        //regNoTxt.setText(reg);
+        //queryReg = regNoTxt.getText();
         
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ExamsBtn;
     private javax.swing.JMenuItem FeeBtn;
     private javax.swing.JMenuItem HomeBtn;
+    private javax.swing.JTable TableExams;
     private javax.swing.JMenuItem UnitsBtn;
     private javax.swing.JMenu homeBtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JMenuItem logOut;
-    private javax.swing.JLabel programmeTxt;
-    private javax.swing.JLabel programmeTxt1;
     private javax.swing.JMenuItem progressBtn;
-    private javax.swing.JLabel regNoTxt;
-    private javax.swing.JLabel schoolTxt;
-    private javax.swing.JLabel studentNameTxt;
     // End of variables declaration//GEN-END:variables
-
-    private PreparedStatementWrapper prepareStatement(String studentDetails) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

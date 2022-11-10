@@ -2,7 +2,7 @@
 package registration.system;
 
 import registration.system.StudentLogin;
-import registration.system.StudentHomeDashBoard;
+import registration.system.StudentHomeDashboard;
 import registration.system.StudentUnit;
 
 /*
@@ -179,7 +179,7 @@ public class StudentProgress extends javax.swing.JFrame {
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         // TODO add your handling code here:
-        StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
+        StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
         this.setVisible(false);
         this.dispose();
@@ -248,7 +248,7 @@ public class StudentProgress extends javax.swing.JFrame {
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
-        StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
+        StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
         this.setVisible(false);
         this.dispose();

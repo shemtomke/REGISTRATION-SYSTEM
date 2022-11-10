@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class StudentUnit extends javax.swing.JFrame {
 
-    StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
+    StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
     
     Connection connection = null;
     PreparedStatementWrapper ps = null;
@@ -162,9 +162,9 @@ public class StudentUnit extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(yearTxt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(registerButton1))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(registerButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -290,7 +290,7 @@ public class StudentUnit extends javax.swing.JFrame {
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         // TODO add your handling code here:
-        StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
+        StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
         this.setVisible(false);
         this.dispose();
@@ -359,7 +359,7 @@ public class StudentUnit extends javax.swing.JFrame {
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // TODO add your handling code here:
-        StudentHomeDashBoard studentHomeDashBoard = new StudentHomeDashBoard();
+        StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
         this.setVisible(false);
         this.dispose();
