@@ -26,7 +26,7 @@ public class ConnectionDatabase
      {
          try {
             String user = "root";
-            String password = "17382002";
+            String password = "";
             String url = "jdbc:mysql://localhost:3306/schoolsystem";
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection c = DriverManager.getConnection(url, user, password);
@@ -44,6 +44,7 @@ public class ConnectionDatabase
             return c;
         } catch (ClassNotFoundException | SQLException e) 
         {
+            JOptionPane.showMessageDialog(null, "We cannot retrieve your details now, an error on our side! Try Again Later!");
             Logger.getLogger(ConnectionDatabase.class.getName()).log(Level.SEVERE, null, e);
         }
          

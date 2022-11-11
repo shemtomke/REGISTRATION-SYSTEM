@@ -4,11 +4,15 @@
  */
 package registration.system;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.Statement;
+import java.util.Scanner;
 
 /**
  *
@@ -16,7 +20,7 @@ import java.sql.Statement;
  */
 public class StudentLogin extends javax.swing.JFrame {
 
-    Connection connection = null;
+    //Connection connection = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     
@@ -27,7 +31,6 @@ public class StudentLogin extends javax.swing.JFrame {
      */
     public StudentLogin() {
         initComponents();
-        connection = ConnectionDatabase.DbConnection();
     }
 
     /**
@@ -195,50 +198,49 @@ public class StudentLogin extends javax.swing.JFrame {
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
         
         //Login
-        String studentTable = "SELECT * FROM student WHERE regno = ? AND studentPassword = ?";
-        String advisorTable = "SELECT * FROM advisor WHERE advisorID = ? AND advisorpassword = ?";
-        String adminTable = "SELECT * FROM adminoffice WHERE adminID = ? AND adminPassword = ?";
-        String[] allTables = new String[] {studentTable, advisorTable, adminTable};
-        
-        String user = 
-"SELECT student.regno, student.Password, advisor.advisorID, advisor.advisorPassword, adminoffice.adminID, adminoffcie.adminPassword FROM student, advisor, adminoffice WHERE student.regno OR advisor.advisorID OR adminoffice.adminID = ? AND student.studentPassword OR advisor.advisorPassword OR adminoffcie.adminPassword = ?";
+        String studentTable = "SELECT * FROM student WHERE regno = ?";
         
         try 
             {
-                //MULTIPLE CONNECTION?
-                //ps = connection.prepareStatement(studentTable);
-                ps = connection.prepareStatement(adminTable);
+                ps = ConnectionDatabase.DbConnection().prepareStatement(studentTable);
                  
                 ps.setString(1, usernameField.getText());
-                ps.setString(2, passwordField.getText());
+                ps.setString(1, passwordField.getText());
                 
-                //got access to the specific row where the user has entered data
                 loginDetails = usernameField.getText();
-                System.out.println(loginDetails);
                 
-                rs = ps.executeQuery();
+                try{
+                FileWriter UserId = new FileWriter("Logs.txt");
+                
+                UserId.write(loginDetails);
+                
+                    System.out.println("Reg Number is : " + loginDetails);
+                UserId.close();
+                }catch(IOException e) {
+                    System.out.println("An Error Occured");
+                }
+                
+                rs = ps.executeQuery();            
                 
                 if(rs.next())
                 {
                     //Correct details
                     JOptionPane.showMessageDialog(null, "Successfully Logged In!");
-                    studentHomeDashBoard.GetRegNo(loginDetails);
+                    
                     
                     //close login form
                     this.setVisible(false);
                     this.dispose();
 
-                    //studentHomeDashBoard.show();
-                    
-                    if(loginDetails.startsWith("S")) //student login
-                    {
-                        //if user is employee then move to employee else student
-                        studentHomeDashBoard.show();
-                    }
-                    else if(loginDetails.startsWith("E/ADMIN")) //admin login
-                    {
-                        
-                    }
+                    studentHomeDashBoard.show();
+                }
+                else
+                {
+                   JOptionPane.showMessageDialog(null, "INVALID DETAILS!"); 
+                   
+                   //clear the form automatically
+                    usernameField.setText("");
+                    passwordField.setText("");
                 }
             }
             catch (Exception e)
@@ -250,12 +252,20 @@ public class StudentLogin extends javax.swing.JFrame {
                 usernameField.setText("");
                 passwordField.setText("");
             }
+        
+      
+        
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordFieldActionPerformed
 
+    public void update(){
+        
+    }
+      
+    
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
         ChooseUser chooseUser = new ChooseUser();
@@ -301,6 +311,7 @@ public class StudentLogin extends javax.swing.JFrame {
             }
         });
         
+        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -312,7 +323,7 @@ public class StudentLogin extends javax.swing.JFrame {
     private javax.swing.JLabel loginInfoLabel;
     private javax.swing.JLabel logoKsu;
     private javax.swing.JPasswordField passwordField;
-    private javax.swing.JTextField usernameField;
+    public javax.swing.JTextField usernameField;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

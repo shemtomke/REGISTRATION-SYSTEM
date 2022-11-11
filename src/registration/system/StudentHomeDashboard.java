@@ -4,11 +4,16 @@
  */
 package registration.system;
 
+import com.mysql.cj.jdbc.JdbcPreparedStatement;
 import com.mysql.cj.jdbc.PreparedStatementWrapper;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,18 +24,17 @@ import javax.swing.JOptionPane;
  */
 public class StudentHomeDashboard extends javax.swing.JFrame {
 
-    Connection connection = null;
-    PreparedStatementWrapper ps = null;
+    PreparedStatement ps = null;
     ResultSet rs = null;
     
-    String queryReg;
     
     /**
      * Creates new form StudentHomeDashboard
      */
     public StudentHomeDashboard() {
         initComponents();
-        connection = ConnectionDatabase.DbConnection();
+                
+        DisplayStudent();
     }
 
     /**
@@ -43,8 +47,8 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        studentNameLbl = new javax.swing.JLabel();
+        regNumberLbl = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -66,15 +70,15 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("NAME");
+        studentNameLbl.setBackground(new java.awt.Color(255, 255, 255));
+        studentNameLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        studentNameLbl.setForeground(new java.awt.Color(0, 0, 0));
+        studentNameLbl.setText("NAME");
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("REG NO");
+        regNumberLbl.setBackground(new java.awt.Color(255, 255, 255));
+        regNumberLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        regNumberLbl.setForeground(new java.awt.Color(0, 0, 0));
+        regNumberLbl.setText("REG NO");
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -133,12 +137,12 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(regNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(studentNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -149,10 +153,10 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(regNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -320,11 +324,14 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
         // TODO add your handling code here:
         StudentLogin login = new StudentLogin();
-
+        
+       
+        
         this.setVisible(false);
         this.dispose();
-
+        
         login.show();
+       
     }//GEN-LAST:event_logOutActionPerformed
 
     private void homeBtnMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_homeBtnMenuSelected
@@ -374,34 +381,63 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
                 new StudentHomeDashboard().setVisible(true);
             }
         });
+        
+        GetRegNo();
     }
 
+    
+    public void DisplayUnits()
+    {
+        //if the user has registered then list all units 
+        //unit name, unit code and status
+        
+    }
+    public static String GetRegNo()
+    {
+        String reg = "";
+        try {
+            File regLog = new File("Logs.txt");
+            Scanner myReader = new Scanner(regLog);
+            while (myReader.hasNextLine()){
+                reg = myReader.nextLine();
+                System.out.println(reg);
+            }
+            myReader.close();
+        } catch (Exception e) { 
+            System.out.println("An Error Occured");
+        }
+        return reg;
+    }
+    
+    
     public void DisplayStudent()
     {
-        //GET NAME, YEAR, SCHOOL, PROGRAMME, REGNO
+        
+        //Fetch Values for the specific user
+        String studentDetails = 
+        "SELECT * FROM student WHERE RegNO = '"+GetRegNo()+"'";
+        
+        //GET NAME, YEAR, SCHOOL, PROGRAMME
         try 
             {
-                //Fetch Values for the specific user
-                String studentDetails = 
-                "SELECT student.fname, student.regno, semester.Sem_Name, faculty.facultyName FROM student, semester, faculty WHERE student.regno = '"+ queryReg + "'";
                 
-                ps = (PreparedStatementWrapper) connection.prepareStatement(studentDetails);
+                ps = ConnectionDatabase.DbConnection().prepareStatement(studentDetails);
+                
                 rs = ps.executeQuery();
                         
-                if(rs.next())
-                {
-                    /*Student student = new Student(rs.getString("fname"), rs.getString("semID"), rs.getString("facultyID"),
-                    rs.getString("Course_Code"), rs.getString("regno"));*/
-                            
-                    System.out.println(rs.getString("student.fname"));
+                while(rs.next())
+                {     
+                    String fullName = rs.getString("FullName");
+                    String regNO = rs.getString("RegNO");
                     
-                    /*studentNameTxt.setText(rs.getString("student.fname"));
+                    studentNameLbl.setText(fullName);
+                    regNumberLbl.setText(regNO);
+                    
+                    
                     //YearTxt.setText(rs.getString("semester.Sem_Name"));
-                    schoolTxt.setText(rs.getString("faculty.facultyName"));
+                    /*schoolTxt.setText(rs.getString("faculty.facultyName"));
                     programmeTxt.setText(rs.getString("semester.Sem_Name"));
-                    regNoTxt.setText(rs.getString("student.regno"));*/
-                    
-                    JOptionPane.showMessageDialog(null, rs.getString("fname") + rs.getString("regno"));
+                    regNoTxt.setText(rs.getString("student.regno"));*/  
                 }
             }
             catch (Exception e)
@@ -409,20 +445,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
                 
             }
     }
-    public void DisplayUnits()
-    {
-        //if the user has registered then list all units 
-        //unit name, unit code and status
-        
-    }
-    public void GetRegNo(String reg)
-    {
-        StudentHomeDashboard studentHome = new StudentHomeDashboard();
-        
-        //regNoTxt.setText(reg);
-        //queryReg = regNoTxt.getText();
-        
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ExamsBtn;
     private javax.swing.JMenuItem FeeBtn;
@@ -430,8 +453,6 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
     private javax.swing.JTable TableExams;
     private javax.swing.JMenuItem UnitsBtn;
     private javax.swing.JMenu homeBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -441,5 +462,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem logOut;
     private javax.swing.JMenuItem progressBtn;
+    private javax.swing.JLabel regNumberLbl;
+    private javax.swing.JLabel studentNameLbl;
     // End of variables declaration//GEN-END:variables
 }

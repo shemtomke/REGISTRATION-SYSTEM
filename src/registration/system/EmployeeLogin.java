@@ -28,6 +28,7 @@ public class EmployeeLogin extends javax.swing.JFrame {
     public EmployeeLogin() {
         initComponents();
         connection = ConnectionDatabase.DbConnection();
+        AddEmployeePosition();
     }
 
     /**
@@ -48,7 +49,7 @@ public class EmployeeLogin extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
         usernameField = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        EmployeePositionComboBox = new javax.swing.JComboBox<>();
         Back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -101,9 +102,8 @@ public class EmployeeLogin extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        EmployeePositionComboBox.setBackground(new java.awt.Color(255, 255, 255));
+        EmployeePositionComboBox.setForeground(new java.awt.Color(0, 0, 0));
 
         Back.setBackground(new java.awt.Color(255, 255, 255));
         Back.setForeground(new java.awt.Color(0, 0, 0));
@@ -143,7 +143,7 @@ public class EmployeeLogin extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(52, 52, 52)
                                     .addComponent(UsernameLabel)))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(EmployeePositionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(275, 275, 275))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(loginInfoLabel)
@@ -164,9 +164,9 @@ public class EmployeeLogin extends javax.swing.JFrame {
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(loginInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(EmployeePositionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(UsernameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,10 +201,8 @@ public class EmployeeLogin extends javax.swing.JFrame {
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
         
         //Login
-        String studentTable = "SELECT * FROM student WHERE regno = ? AND studentPassword = ?";
-        String advisorTable = "SELECT * FROM advisor WHERE advisorID = ? AND advisorpassword = ?";
-        String adminTable = "SELECT * FROM adminoffice WHERE adminID = ? AND adminPassword = ?";
-        String[] allTables = new String[] {studentTable, advisorTable, adminTable};
+        String EmployeeTable = "SELECT* FROM employee WHERE EmployeeID = ?";
+        
         
         String user = 
 "SELECT student.regno, student.Password, advisor.advisorID, advisor.advisorPassword, adminoffice.adminID, adminoffcie.adminPassword FROM student, advisor, adminoffice WHERE student.regno OR advisor.advisorID OR adminoffice.adminID = ? AND student.studentPassword OR advisor.advisorPassword OR adminoffcie.adminPassword = ?";
@@ -213,10 +211,10 @@ public class EmployeeLogin extends javax.swing.JFrame {
             {
                 //MULTIPLE CONNECTION?
                 //ps = connection.prepareStatement(studentTable);
-                ps = connection.prepareStatement(adminTable);
+                ps = connection.prepareStatement(EmployeeTable);
                  
                 ps.setString(1, usernameField.getText());
-                ps.setString(2, passwordField.getText());
+                ps.setString(1, passwordField.getText());
                 
                 //got access to the specific row where the user has entered data
                 loginDetails = usernameField.getText();
@@ -228,7 +226,7 @@ public class EmployeeLogin extends javax.swing.JFrame {
                 {
                     //Correct details
                     JOptionPane.showMessageDialog(null, "Successfully Logged In!");
-                    studentHomeDashBoard.GetRegNo(loginDetails);
+                   // studentHomeDashBoard.GetRegNo(loginDetails);
                     
                     //close login form
                     this.setVisible(false);
@@ -272,6 +270,23 @@ public class EmployeeLogin extends javax.swing.JFrame {
         chooseUser.show();
     }//GEN-LAST:event_BackActionPerformed
 
+      private void AddEmployeePosition() {
+        try {
+            String position = "SELECT * FROM role";
+            ps = connection.prepareStatement(position);
+            
+            rs = ps.executeQuery(position);
+        
+        while(rs.next())
+        {
+            String positions= rs.getString("RoleName");
+
+            EmployeePositionComboBox.addItem(positions);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -311,9 +326,9 @@ public class EmployeeLogin extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
+    private javax.swing.JComboBox<String> EmployeePositionComboBox;
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JLabel UsernameLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginInfoLabel;
