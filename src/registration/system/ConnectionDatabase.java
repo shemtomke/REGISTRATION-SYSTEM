@@ -27,7 +27,7 @@ public class ConnectionDatabase
          try {
             String user = "root";
             String password = "";
-            String url = "jdbc:mysql://localhost:3306/schoolsystem";
+            String url = "jdbc:mysql://localhost:3306/school";
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection c = DriverManager.getConnection(url, user, password);
             

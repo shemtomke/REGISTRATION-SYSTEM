@@ -56,12 +56,17 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         jPanel1 = new javax.swing.JPanel();
         studentNameLbl = new javax.swing.JLabel();
         regNumberLbl = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        semLbl = new javax.swing.JLabel();
+        courseLbl = new javax.swing.JLabel();
+        schoolLbl = new javax.swing.JLabel();
+        feeAmount = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableExams = new javax.swing.JTable();
+        schoolLbl1 = new javax.swing.JLabel();
+        courseLbl1 = new javax.swing.JLabel();
+        semLbl1 = new javax.swing.JLabel();
+        regNumberLbl1 = new javax.swing.JLabel();
+        studentNameLbl1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         homeBtn = new javax.swing.JMenu();
         HomeBtn = new javax.swing.JMenuItem();
@@ -78,7 +83,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
         studentNameLbl.setBackground(new java.awt.Color(255, 255, 255));
-        studentNameLbl.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        studentNameLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         studentNameLbl.setForeground(new java.awt.Color(0, 0, 0));
         studentNameLbl.setText("NAME");
 
@@ -87,26 +92,26 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         regNumberLbl.setForeground(new java.awt.Color(0, 0, 0));
         regNumberLbl.setText("REG NO");
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("YEAR");
+        semLbl.setBackground(new java.awt.Color(255, 255, 255));
+        semLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        semLbl.setForeground(new java.awt.Color(0, 0, 0));
+        semLbl.setText("YEAR");
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("COURSE NAME");
+        courseLbl.setBackground(new java.awt.Color(255, 255, 255));
+        courseLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        courseLbl.setForeground(new java.awt.Color(0, 0, 0));
+        courseLbl.setText("COURSE NAME");
 
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("SCHOOL");
+        schoolLbl.setBackground(new java.awt.Color(255, 255, 255));
+        schoolLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        schoolLbl.setForeground(new java.awt.Color(0, 0, 0));
+        schoolLbl.setText("SCHOOL");
 
-        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("FEE : 10,000.00");
-        jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(102, 102, 255)));
+        feeAmount.setBackground(new java.awt.Color(255, 255, 255));
+        feeAmount.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        feeAmount.setForeground(new java.awt.Color(0, 0, 0));
+        feeAmount.setText("FEE : 10,000.00");
+        feeAmount.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(102, 102, 255)));
 
         TableExams.setBackground(new java.awt.Color(204, 255, 204));
         TableExams.setModel(new javax.swing.table.DefaultTableModel(
@@ -136,6 +141,31 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         });
         jScrollPane1.setViewportView(TableExams);
 
+        schoolLbl1.setBackground(new java.awt.Color(255, 255, 255));
+        schoolLbl1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        schoolLbl1.setForeground(new java.awt.Color(0, 0, 0));
+        schoolLbl1.setText("SCHOOL");
+
+        courseLbl1.setBackground(new java.awt.Color(255, 255, 255));
+        courseLbl1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        courseLbl1.setForeground(new java.awt.Color(0, 0, 0));
+        courseLbl1.setText("COURSE NAME");
+
+        semLbl1.setBackground(new java.awt.Color(255, 255, 255));
+        semLbl1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        semLbl1.setForeground(new java.awt.Color(0, 0, 0));
+        semLbl1.setText("YEAR");
+
+        regNumberLbl1.setBackground(new java.awt.Color(255, 255, 255));
+        regNumberLbl1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        regNumberLbl1.setForeground(new java.awt.Color(0, 0, 0));
+        regNumberLbl1.setText("REG NO");
+
+        studentNameLbl1.setBackground(new java.awt.Color(255, 255, 255));
+        studentNameLbl1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        studentNameLbl1.setForeground(new java.awt.Color(0, 0, 0));
+        studentNameLbl1.setText("NAME");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -143,36 +173,59 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(regNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(studentNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(semLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(courseLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(regNumberLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(studentNameLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(schoolLbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(studentNameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(feeAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(regNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(semLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(schoolLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(courseLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(studentNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(regNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(studentNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(feeAmount))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(regNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(semLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(courseLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(schoolLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(studentNameLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(regNumberLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(semLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(courseLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(schoolLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
@@ -263,7 +316,9 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,25 +483,34 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         try 
             {
                 //Fetch Values for the specific user
-                String studentDetails = 
-                "SELECT * FROM student WHERE RegNO = '"+userDetails.getUsername()+"'";
+String studentDetails = "student.FullName, student.RegNO, course.coursename, school.schoolname, semester.semname "
+                + "FROM student "
+                + "INNER JOIN course ON student.Courseid = course.courseid "
+                + "INNER JOIN school ON student.schoolid = school.schoolid "
+                + "INNER JOIN semester ON student.semid = semester.semid "
+                + "WHERE RegNO = '" + userDetails.getUsername() + "'";
+
+String details = "SELECT * FROM student, course, school, semester WHERE RegNO ='" + userDetails.getUsername() + "'";
 
                 ps = ConnectionDatabase.DbConnection().prepareStatement(studentDetails);
                 
-                rs = ps.executeQuery(studentDetails);
+                rs = ps.executeQuery();
                         
                 while(rs.next())
                 {     
                     String fullName = rs.getString("FullName");
                     String regNO = rs.getString("RegNO");
+                    String course = rs.getString("CourseName");
+                    String school = rs.getString("SchoolName");
+                    String sem = rs.getString("SemName");
+                    //String fee = rs.getInt("fee.feeamountpaid");
                     
                     studentNameLbl.setText(fullName);
                     regNumberLbl.setText(regNO);
-
-                    //YearTxt.setText(rs.getString("semester.Sem_Name"));
-                    /*schoolTxt.setText(rs.getString("faculty.facultyName"));
-                    programmeTxt.setText(rs.getString("semester.Sem_Name"));
-                    regNoTxt.setText(rs.getString("student.regno"));*/  
+                    semLbl.setText(sem);
+                    courseLbl.setText(course);
+                    schoolLbl.setText(school);
+                    
                 }
             }
             catch (Exception e)
@@ -461,18 +525,23 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
     private javax.swing.JMenuItem HomeBtn;
     private javax.swing.JTable TableExams;
     private javax.swing.JMenuItem UnitsBtn;
+    private javax.swing.JLabel courseLbl;
+    private javax.swing.JLabel courseLbl1;
+    private javax.swing.JLabel feeAmount;
     private javax.swing.JMenu homeBtn;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem logOut;
     private javax.swing.JMenuItem progressBtn;
     public javax.swing.JLabel regNumberLbl;
+    public javax.swing.JLabel regNumberLbl1;
+    private javax.swing.JLabel schoolLbl;
+    private javax.swing.JLabel schoolLbl1;
+    private javax.swing.JLabel semLbl;
+    private javax.swing.JLabel semLbl1;
     private javax.swing.JLabel studentNameLbl;
+    private javax.swing.JLabel studentNameLbl1;
     // End of variables declaration//GEN-END:variables
 
     @Override
