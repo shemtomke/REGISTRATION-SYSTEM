@@ -483,14 +483,12 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         try 
             {
                 //Fetch Values for the specific user
-String studentDetails = "student.FullName, student.RegNO, course.coursename, school.schoolname, semester.semname "
+String studentDetails = "SELECT student.FullName, student.RegNO, course.coursename, school.schoolname, semester.semname "
                 + "FROM student "
                 + "INNER JOIN course ON student.Courseid = course.courseid "
                 + "INNER JOIN school ON student.schoolid = school.schoolid "
                 + "INNER JOIN semester ON student.semid = semester.semid "
                 + "WHERE RegNO = '" + userDetails.getUsername() + "'";
-
-String details = "SELECT * FROM student, course, school, semester WHERE RegNO ='" + userDetails.getUsername() + "'";
 
                 ps = ConnectionDatabase.DbConnection().prepareStatement(studentDetails);
                 
@@ -503,7 +501,6 @@ String details = "SELECT * FROM student, course, school, semester WHERE RegNO ='
                     String course = rs.getString("CourseName");
                     String school = rs.getString("SchoolName");
                     String sem = rs.getString("SemName");
-                    //String fee = rs.getInt("fee.feeamountpaid");
                     
                     studentNameLbl.setText(fullName);
                     regNumberLbl.setText(regNO);

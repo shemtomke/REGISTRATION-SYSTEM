@@ -118,8 +118,7 @@ public class StudentUnit extends javax.swing.JFrame {
         tableUnits1.setForeground(new java.awt.Color(0, 0, 0));
         tableUnits1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "BIT100", "JAVA 1"},
-                {null, "BIT 200", "PYTHON"}
+
             },
             new String [] {
                 "", "Course Unit Code", "Course Name"
