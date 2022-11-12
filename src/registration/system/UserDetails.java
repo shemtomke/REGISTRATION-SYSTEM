@@ -18,13 +18,13 @@ public class UserDetails extends Observable
     {
         this.username = user;
         setChanged();
-        notifyObservers();
+        notifyObservers(user);
     }
-    
     public String getUsername()
     {
         System.out.println("USER DETAILS : " + username);
         
         return username;
     }
+    
 }

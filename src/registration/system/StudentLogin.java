@@ -23,7 +23,8 @@ import java.util.Scanner;
  *
  * @author SHEM TOM
  */
-public class StudentLogin extends javax.swing.JFrame{
+public class StudentLogin extends javax.swing.JFrame implements IUser
+{
     
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -226,6 +227,7 @@ public class StudentLogin extends javax.swing.JFrame{
                     StudentHomeDashboard studentHomeDashboard = new StudentHomeDashboard();
                     
                     regDetails = rs.getString("RegNO");
+                    StudentLogin login = new StudentLogin();
                     
                     UserDetails userDetails = new UserDetails(regDetails);
                     
@@ -233,10 +235,11 @@ public class StudentLogin extends javax.swing.JFrame{
                     JOptionPane.showMessageDialog(null, "Successfully Logged In!");
 
                     //close login form
+                    
+                    new StudentHomeDashboard().setVisible(true);
+                    
                     this.setVisible(false);
                     this.dispose();
-                    
-                    studentHomeDashBoard.show();
                 }
                 else
                 {
@@ -322,5 +325,11 @@ public class StudentLogin extends javax.swing.JFrame{
     public javax.swing.JTextField usernameField;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void getUsername(String user) 
+    {
+        user = regDetails;
+    }
 
 }

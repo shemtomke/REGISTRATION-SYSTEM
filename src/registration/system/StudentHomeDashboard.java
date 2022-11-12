@@ -24,11 +24,13 @@ import javax.swing.JOptionPane;
  *
  * @author SHEM TOM
  */
-public class StudentHomeDashboard extends javax.swing.JFrame implements Observer{
+public class StudentHomeDashboard extends javax.swing.JFrame implements Observer, IUser{
     
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    UserDetails userDetails = new UserDetails(UserDetails.username);
+    
     public String queryReg;
     
     /**
@@ -37,6 +39,9 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
     public StudentHomeDashboard() {
         initComponents();
         DisplayStudent();
+    }
+    public StudentHomeDashboard(String userName) {
+        queryReg = userName;
     }
 
     /**
@@ -349,7 +354,8 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
 
     @Override
     public void update(Observable o, Object arg) {
-        UserDetails userDetails = new UserDetails(UserDetails.username);
+        
+        System.out.println("LOGIN IS : " + userDetails.getUsername());
     }
     /**
      * @param args the command line arguments
@@ -423,7 +429,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
             {
                 //Fetch Values for the specific user
                 String studentDetails = 
-                "SELECT * FROM student WHERE RegNO = '"+UserDetails.username+"'";
+                "SELECT * FROM student WHERE RegNO = '"+userDetails.getUsername()+"'";
 
                 ps = ConnectionDatabase.DbConnection().prepareStatement(studentDetails);
                 
@@ -469,5 +475,9 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
     private javax.swing.JLabel studentNameLbl;
     // End of variables declaration//GEN-END:variables
 
-    
+    @Override
+    public void getUsername(String user) {
+        queryReg = user;
+    }
+
 }
