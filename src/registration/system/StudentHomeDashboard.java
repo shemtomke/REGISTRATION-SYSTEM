@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,18 +24,18 @@ import javax.swing.JOptionPane;
  *
  * @author SHEM TOM
  */
-public class StudentHomeDashboard extends javax.swing.JFrame {
-
+public class StudentHomeDashboard extends javax.swing.JFrame implements Observer{
+    
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
+
+    public String queryReg;
     
     /**
      * Creates new form StudentHomeDashboard
      */
     public StudentHomeDashboard() {
         initComponents();
-                
         DisplayStudent();
     }
 
@@ -324,9 +326,6 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
         // TODO add your handling code here:
         StudentLogin login = new StudentLogin();
-        
-       
-        
         this.setVisible(false);
         this.dispose();
         
@@ -348,6 +347,10 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
         studentHomeDashBoard.show();
     }//GEN-LAST:event_homeBtnActionPerformed
 
+    @Override
+    public void update(Observable o, Object arg) {
+        UserDetails userDetails = new UserDetails(UserDetails.username);
+    }
     /**
      * @param args the command line arguments
      */
@@ -375,6 +378,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -382,10 +386,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
             }
         });
         
-        GetRegNo();
     }
-
-    
     public void DisplayUnits()
     {
         //if the user has registered then list all units 
@@ -394,8 +395,11 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
     }
     public static String GetRegNo()
     {
+        StudentLogin login = new StudentLogin();
+        
         String reg = "";
-        try {
+        
+        /*try {
             File regLog = new File("Logs.txt");
             Scanner myReader = new Scanner(regLog);
             while (myReader.hasNextLine()){
@@ -405,25 +409,25 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
             myReader.close();
         } catch (Exception e) { 
             System.out.println("An Error Occured");
-        }
+        }*/
         return reg;
     }
     
     
     public void DisplayStudent()
     {
-        
-        //Fetch Values for the specific user
-        String studentDetails = 
-        "SELECT * FROM student WHERE RegNO = '"+GetRegNo()+"'";
+        StudentLogin login = new StudentLogin();
         
         //GET NAME, YEAR, SCHOOL, PROGRAMME
         try 
             {
-                
+                //Fetch Values for the specific user
+                String studentDetails = 
+                "SELECT * FROM student WHERE RegNO = '"+UserDetails.username+"'";
+
                 ps = ConnectionDatabase.DbConnection().prepareStatement(studentDetails);
                 
-                rs = ps.executeQuery();
+                rs = ps.executeQuery(studentDetails);
                         
                 while(rs.next())
                 {     
@@ -432,8 +436,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
                     
                     studentNameLbl.setText(fullName);
                     regNumberLbl.setText(regNO);
-                    
-                    
+
                     //YearTxt.setText(rs.getString("semester.Sem_Name"));
                     /*schoolTxt.setText(rs.getString("faculty.facultyName"));
                     programmeTxt.setText(rs.getString("semester.Sem_Name"));
@@ -462,7 +465,9 @@ public class StudentHomeDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem logOut;
     private javax.swing.JMenuItem progressBtn;
-    private javax.swing.JLabel regNumberLbl;
+    public javax.swing.JLabel regNumberLbl;
     private javax.swing.JLabel studentNameLbl;
     // End of variables declaration//GEN-END:variables
+
+    
 }

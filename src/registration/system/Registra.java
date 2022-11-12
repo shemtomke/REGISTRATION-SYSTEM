@@ -78,7 +78,8 @@ public class Registra extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("DashBoard");
 
-        jInternalFrame1.setBackground(new java.awt.Color(204, 204, 255));
+        jInternalFrame1.setBackground(new java.awt.Color(255, 255, 255));
+        jInternalFrame1.setForeground(new java.awt.Color(255, 255, 255));
         jInternalFrame1.setVisible(true);
 
         registeredStudentsProgress.setForeground(new java.awt.Color(0, 102, 0));

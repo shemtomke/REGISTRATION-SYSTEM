@@ -4,6 +4,7 @@
  */
 package registration.system;
 
+import com.mysql.cj.callback.UsernameCallback;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,20 +13,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 
 /**
  *
  * @author SHEM TOM
  */
-public class StudentLogin extends javax.swing.JFrame {
-
-    //Connection connection = null;
+public class StudentLogin extends javax.swing.JFrame{
+    
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
-    public String loginDetails;
-    
+    static String regDetails;
     /**
      * Creates new form LoginScreen
      */
@@ -194,7 +196,6 @@ public class StudentLogin extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
         // When the user has not insert any data to the form
-        
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
         
         //Login
@@ -207,9 +208,7 @@ public class StudentLogin extends javax.swing.JFrame {
                 ps.setString(1, usernameField.getText());
                 ps.setString(1, passwordField.getText());
                 
-                loginDetails = usernameField.getText();
-                
-                try{
+                /*try{
                 FileWriter UserId = new FileWriter("Logs.txt");
                 
                 UserId.write(loginDetails);
@@ -218,20 +217,25 @@ public class StudentLogin extends javax.swing.JFrame {
                 UserId.close();
                 }catch(IOException e) {
                     System.out.println("An Error Occured");
-                }
+                }*/
                 
                 rs = ps.executeQuery();            
                 
                 if(rs.next())
                 {
+                    StudentHomeDashboard studentHomeDashboard = new StudentHomeDashboard();
+                    
+                    regDetails = rs.getString("RegNO");
+                    
+                    UserDetails userDetails = new UserDetails(regDetails);
+                    
                     //Correct details
                     JOptionPane.showMessageDialog(null, "Successfully Logged In!");
-                    
-                    
+
                     //close login form
                     this.setVisible(false);
                     this.dispose();
-
+                    
                     studentHomeDashBoard.show();
                 }
                 else
@@ -252,19 +256,13 @@ public class StudentLogin extends javax.swing.JFrame {
                 usernameField.setText("");
                 passwordField.setText("");
             }
-        
-      
-        
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordFieldActionPerformed
 
-    public void update(){
-        
-    }
-      
     
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         // TODO add your handling code here:
@@ -310,8 +308,6 @@ public class StudentLogin extends javax.swing.JFrame {
                 new StudentLogin().setVisible(true);
             }
         });
-        
-        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -326,4 +322,5 @@ public class StudentLogin extends javax.swing.JFrame {
     public javax.swing.JTextField usernameField;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
+
 }
