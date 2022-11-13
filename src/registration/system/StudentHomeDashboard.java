@@ -393,7 +393,6 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
     @Override
     public void update(Observable o, Object arg) {
         
-        System.out.println("LOGIN IS : " + userDetails.getUsername());
     }
     /**
      * @param args the command line arguments
@@ -429,7 +428,6 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
                 new StudentHomeDashboard().setVisible(true);
             }
         });
-        
     }
     
     void DisplayUnitsRegistered()
@@ -521,7 +519,7 @@ String studentDetails = "SELECT student.FullName, student.RegNO, course.coursena
     private javax.swing.JLabel semLbl1;
     private javax.swing.JLabel studentNameLbl;
     private javax.swing.JLabel studentNameLbl1;
-    private javax.swing.JTable unitsTable;
+    public static javax.swing.JTable unitsTable;
     // End of variables declaration//GEN-END:variables
 
 }

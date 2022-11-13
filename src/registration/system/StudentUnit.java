@@ -28,6 +28,7 @@ public class StudentUnit extends javax.swing.JFrame {
     ResultSet rs = null;
     
     boolean selectUnit = false;
+    String unitID;
     
     /**
      * Creates new form StudentUnit
@@ -36,9 +37,10 @@ public class StudentUnit extends javax.swing.JFrame {
         initComponents();
         ShowSemester();
         PopulateUnits();
+        CheckUnitRegistration();
+        
         
         System.out.println("REG NO IS : " + userDetails.getUsername());
-        //registerButton1.setEnabled(false);
     }
 
     /**
@@ -57,7 +59,7 @@ public class StudentUnit extends javax.swing.JFrame {
         registerButton = new javax.swing.JButton();
         year = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        registerButton1 = new javax.swing.JButton();
+        reportButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableUnits = new javax.swing.JTable();
@@ -115,12 +117,12 @@ public class StudentUnit extends javax.swing.JFrame {
         year.setForeground(new java.awt.Color(0, 0, 0));
         year.setText("YEAR 1 SEM 1");
 
-        registerButton1.setBackground(new java.awt.Color(0, 255, 0));
-        registerButton1.setForeground(new java.awt.Color(0, 0, 0));
-        registerButton1.setText("REPORT");
-        registerButton1.addActionListener(new java.awt.event.ActionListener() {
+        reportButton.setBackground(new java.awt.Color(0, 255, 0));
+        reportButton.setForeground(new java.awt.Color(0, 0, 0));
+        reportButton.setText("REPORT");
+        reportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerButton1ActionPerformed(evt);
+                reportButtonActionPerformed(evt);
             }
         });
 
@@ -160,7 +162,7 @@ public class StudentUnit extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(registerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(reportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -171,7 +173,7 @@ public class StudentUnit extends javax.swing.JFrame {
                 .addComponent(yearTxt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(registerButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(reportButton, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,6 +317,27 @@ public class StudentUnit extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
+    void CheckUnitRegistration()
+    {
+        //if the user has clicked and registered units then set all check boxes to true and the button to false
+        //check if the table from home dashboard has populated anything if true then do as above
+        //check if the data exists in the table if so then disable
+        unitID = (String) tableUnits.getValueAt(0, 1);
+        String queryCheck = "SELECT * FROM unitregistration WHERE UnitID = '" + unitID + "'";
+        
+        try {
+            ps = ConnectionDatabase.DbConnection().prepareStatement(queryCheck);
+            rs = ps.executeQuery();
+            boolean exists = rs.next();
+            
+            if(exists)
+            {
+                registerButton.setEnabled(false);
+            }
+        } catch (Exception e) {
+        }
+        
+    }
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         //if all booleans are selected then show successful message
         
@@ -369,15 +392,12 @@ public class StudentUnit extends javax.swing.JFrame {
         {
             
         }
-        
-        
-        
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
+    private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
         //if you are a new student then show that you were reported for session by the registrar
         
-    }//GEN-LAST:event_registerButton1ActionPerformed
+    }//GEN-LAST:event_reportButtonActionPerformed
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         // TODO add your handling code here:
@@ -502,7 +522,7 @@ public class StudentUnit extends javax.swing.JFrame {
     private javax.swing.JMenuItem logOut;
     private javax.swing.JMenuItem progressBtn;
     private javax.swing.JButton registerButton;
-    private javax.swing.JButton registerButton1;
+    private javax.swing.JButton reportButton;
     private javax.swing.JTable reportSessionTable;
     private javax.swing.JTable tableUnits;
     private javax.swing.JLabel year;
