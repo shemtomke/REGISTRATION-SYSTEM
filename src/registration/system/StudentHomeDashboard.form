@@ -38,7 +38,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="UnitsBtn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="UNITS"/>
+                <Property name="text" type="java.lang.String" value="UNITS &amp; SESSION"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UnitsBtnActionPerformed"/>
@@ -255,6 +255,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="YEAR"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="courseLbl">
           <Properties>

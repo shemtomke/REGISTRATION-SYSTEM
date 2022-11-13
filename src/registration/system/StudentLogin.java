@@ -23,12 +23,14 @@ import java.util.Scanner;
  *
  * @author SHEM TOM
  */
-public class StudentLogin extends javax.swing.JFrame implements IUser
+public class StudentLogin extends javax.swing.JFrame
 {
     
     PreparedStatement ps = null;
     ResultSet rs = null;
+    
     static String regDetails;
+    
     /**
      * Creates new form LoginScreen
      */
@@ -227,7 +229,6 @@ public class StudentLogin extends javax.swing.JFrame implements IUser
                     StudentHomeDashboard studentHomeDashboard = new StudentHomeDashboard();
                     
                     regDetails = rs.getString("RegNO");
-                    StudentLogin login = new StudentLogin();
                     
                     UserDetails userDetails = new UserDetails(regDetails);
                     
@@ -326,10 +327,5 @@ public class StudentLogin extends javax.swing.JFrame implements IUser
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void getUsername(String user) 
-    {
-        user = regDetails;
-    }
 
 }

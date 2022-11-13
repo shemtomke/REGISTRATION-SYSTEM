@@ -12,7 +12,7 @@ import java.util.Observable;
  */
 public class UserDetails extends Observable
 {
-    public static String username;
+    public static String username, semID, courseID, schoolID;
     
     public UserDetails(String user)
     {
@@ -22,9 +22,18 @@ public class UserDetails extends Observable
     }
     public String getUsername()
     {
-        System.out.println("USER DETAILS : " + username);
-        
         return username;
     }
-    
+    public String getSemester()
+    {
+        return semID;
+    }
+    public String getCourse()
+    {
+        return courseID;
+    }
+    public String getSchool()
+    {
+        return schoolID;
+    }
 }

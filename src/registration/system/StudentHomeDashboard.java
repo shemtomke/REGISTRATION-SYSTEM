@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  *
  * @author SHEM TOM
  */
-public class StudentHomeDashboard extends javax.swing.JFrame implements Observer, IUser{
+public class StudentHomeDashboard extends javax.swing.JFrame implements Observer{
     
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -32,6 +32,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
     UserDetails userDetails = new UserDetails(UserDetails.username);
     
     public String queryReg;
+    public String semester, semID, courseID;
     
     /**
      * Creates new form StudentHomeDashboard
@@ -39,9 +40,6 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
     public StudentHomeDashboard() {
         initComponents();
         DisplayStudent();
-    }
-    public StudentHomeDashboard(String userName) {
-        queryReg = userName;
     }
 
     /**
@@ -258,7 +256,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         });
         homeBtn.add(HomeBtn);
 
-        UnitsBtn.setText("UNITS");
+        UnitsBtn.setText("UNITS & SESSION");
         UnitsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UnitsBtnActionPerformed(evt);
@@ -333,30 +331,27 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         // TODO add your handling code here:
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
+        studentHomeDashBoard.show();
         this.setVisible(false);
         this.dispose();
-
-        studentHomeDashBoard.show();
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void UnitsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnitsBtnActionPerformed
         // TODO add your handling code here:
         StudentUnit studentUnit = new StudentUnit();
 
+        studentUnit.show();
         this.setVisible(false);
         this.dispose();
-
-        studentUnit.show();
     }//GEN-LAST:event_UnitsBtnActionPerformed
 
     private void FeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeeBtnActionPerformed
         // TODO add your handling code here:
         StudentFee studentFee = new StudentFee();
-
+        studentFee.show();
         this.setVisible(false);
         this.dispose();
 
-        studentFee.show();
     }//GEN-LAST:event_FeeBtnActionPerformed
 
     private void ExamsBtnMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_ExamsBtnMenuKeyPressed
@@ -366,31 +361,27 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
     private void ExamsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExamsBtnActionPerformed
         // TODO add your handling code here:
         Examination studentExam = new Examination();
-
+        studentExam.show();
         this.setVisible(false);
         this.dispose();
 
-        studentExam.show();
     }//GEN-LAST:event_ExamsBtnActionPerformed
 
     private void progressBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_progressBtnActionPerformed
         // TODO add your handling code here:
         StudentProgress studentProgress = new StudentProgress();
-
+        studentProgress.show();
         this.setVisible(false);
         this.dispose();
 
-        studentProgress.show();
     }//GEN-LAST:event_progressBtnActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
         // TODO add your handling code here:
         StudentLogin login = new StudentLogin();
+        login.show();
         this.setVisible(false);
         this.dispose();
-        
-        login.show();
-       
     }//GEN-LAST:event_logOutActionPerformed
 
     private void homeBtnMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_homeBtnMenuSelected
@@ -401,10 +392,9 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         // TODO add your handling code here:
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
+        studentHomeDashBoard.show();
         this.setVisible(false);
         this.dispose();
-
-        studentHomeDashBoard.show();
     }//GEN-LAST:event_homeBtnActionPerformed
 
     @Override
@@ -448,32 +438,6 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         });
         
     }
-    public void DisplayUnits()
-    {
-        //if the user has registered then list all units 
-        //unit name, unit code and status
-        
-    }
-    public static String GetRegNo()
-    {
-        StudentLogin login = new StudentLogin();
-        
-        String reg = "";
-        
-        /*try {
-            File regLog = new File("Logs.txt");
-            Scanner myReader = new Scanner(regLog);
-            while (myReader.hasNextLine()){
-                reg = myReader.nextLine();
-                System.out.println(reg);
-            }
-            myReader.close();
-        } catch (Exception e) { 
-            System.out.println("An Error Occured");
-        }*/
-        return reg;
-    }
-    
     
     public void DisplayStudent()
     {
@@ -508,6 +472,9 @@ String studentDetails = "SELECT student.FullName, student.RegNO, course.coursena
                     courseLbl.setText(course);
                     schoolLbl.setText(school);
                     
+                    semester = sem;
+                    semID = rs.getString("SemID");
+                    courseID = rs.getString("CourseID");
                 }
             }
             catch (Exception e)
@@ -535,15 +502,10 @@ String studentDetails = "SELECT student.FullName, student.RegNO, course.coursena
     public javax.swing.JLabel regNumberLbl1;
     private javax.swing.JLabel schoolLbl;
     private javax.swing.JLabel schoolLbl1;
-    private javax.swing.JLabel semLbl;
+    public javax.swing.JLabel semLbl;
     private javax.swing.JLabel semLbl1;
     private javax.swing.JLabel studentNameLbl;
     private javax.swing.JLabel studentNameLbl1;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void getUsername(String user) {
-        queryReg = user;
-    }
 
 }

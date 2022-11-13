@@ -108,7 +108,7 @@ public class StudentProgress extends javax.swing.JFrame {
         });
         homeBtn.add(HomeBtn);
 
-        UnitsBtn.setText("UNITS");
+        UnitsBtn.setText("UNITS & SESSION");
         UnitsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UnitsBtnActionPerformed(evt);
@@ -181,30 +181,27 @@ public class StudentProgress extends javax.swing.JFrame {
         // TODO add your handling code here:
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
+        studentHomeDashBoard.show();
         this.setVisible(false);
         this.dispose();
-
-        studentHomeDashBoard.show();
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void UnitsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnitsBtnActionPerformed
         // TODO add your handling code here:
         StudentUnit studentUnit = new StudentUnit();
 
+        studentUnit.show();
         this.setVisible(false);
         this.dispose();
-
-        studentUnit.show();
     }//GEN-LAST:event_UnitsBtnActionPerformed
 
     private void FeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeeBtnActionPerformed
         // TODO add your handling code here:
         StudentFee studentFee = new StudentFee();
-
+        studentFee.show();
         this.setVisible(false);
         this.dispose();
 
-        studentFee.show();
     }//GEN-LAST:event_FeeBtnActionPerformed
 
     private void ExamsBtnMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_ExamsBtnMenuKeyPressed
@@ -214,32 +211,27 @@ public class StudentProgress extends javax.swing.JFrame {
     private void ExamsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExamsBtnActionPerformed
         // TODO add your handling code here:
         Examination studentExam = new Examination();
-
+        studentExam.show();
         this.setVisible(false);
         this.dispose();
 
-        studentExam.show();
     }//GEN-LAST:event_ExamsBtnActionPerformed
 
     private void progressBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_progressBtnActionPerformed
         // TODO add your handling code here:
         StudentProgress studentProgress = new StudentProgress();
-
+        studentProgress.show();
         this.setVisible(false);
         this.dispose();
 
-        studentProgress.show();
     }//GEN-LAST:event_progressBtnActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
         // TODO add your handling code here:
         StudentLogin login = new StudentLogin();
-
+        login.show();
         this.setVisible(false);
         this.dispose();
-
-        login.show();
-
     }//GEN-LAST:event_logOutActionPerformed
 
     private void homeBtnMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_homeBtnMenuSelected
@@ -250,10 +242,9 @@ public class StudentProgress extends javax.swing.JFrame {
         // TODO add your handling code here:
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
+        studentHomeDashBoard.show();
         this.setVisible(false);
         this.dispose();
-
-        studentHomeDashBoard.show();
     }//GEN-LAST:event_homeBtnActionPerformed
 
     /**

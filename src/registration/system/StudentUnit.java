@@ -5,9 +5,13 @@
 package registration.system;
 
 import com.mysql.cj.jdbc.PreparedStatementWrapper;
-import com.mysql.cj.protocol.Resultset;
+import java.sql.ResultSet;
 import java.sql.Connection;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,17 +20,23 @@ import java.util.ArrayList;
 public class StudentUnit extends javax.swing.JFrame {
 
     StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
+    UserDetails userDetails = new UserDetails(UserDetails.username);
     
-    Connection connection = null;
-    PreparedStatementWrapper ps = null;
-    Resultset rs = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    
+    boolean selectUnit = false;
     
     /**
      * Creates new form StudentUnit
      */
     public StudentUnit() {
         initComponents();
-        connection = ConnectionDatabase.DbConnection();
+        ShowSemester();
+        PopulateUnits();
+        
+        System.out.println("REG NO IS : " + userDetails.getUsername());
+        //registerButton1.setEnabled(false);
     }
 
     /**
@@ -41,14 +51,14 @@ public class StudentUnit extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         yearTxt = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableUnits = new javax.swing.JTable();
+        reportSessionTable = new javax.swing.JTable();
         registerButton = new javax.swing.JButton();
-        yearTxt1 = new javax.swing.JLabel();
+        year = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         registerButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableUnits1 = new javax.swing.JTable();
+        tableUnits = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         homeBtn = new javax.swing.JMenu();
         HomeBtn = new javax.swing.JMenuItem();
@@ -68,26 +78,26 @@ public class StudentUnit extends javax.swing.JFrame {
         yearTxt.setForeground(new java.awt.Color(0, 0, 0));
         yearTxt.setText("REPORT SESSION");
 
-        tableUnits.setBackground(new java.awt.Color(255, 255, 255));
-        tableUnits.setForeground(new java.awt.Color(0, 0, 0));
-        tableUnits.setModel(new javax.swing.table.DefaultTableModel(
+        reportSessionTable.setBackground(new java.awt.Color(255, 255, 255));
+        reportSessionTable.setForeground(new java.awt.Color(0, 0, 0));
+        reportSessionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Semester", "Date Reported", "Type"
+                "Semester", "Date Reported"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableUnits);
+        jScrollPane1.setViewportView(reportSessionTable);
 
         registerButton.setBackground(new java.awt.Color(0, 255, 0));
         registerButton.setForeground(new java.awt.Color(0, 0, 0));
@@ -98,12 +108,10 @@ public class StudentUnit extends javax.swing.JFrame {
             }
         });
 
-        yearTxt1.setBackground(new java.awt.Color(255, 255, 255));
-        yearTxt1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        yearTxt1.setForeground(new java.awt.Color(0, 0, 0));
-        yearTxt1.setText("YEAR 1 SEM 1");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        year.setBackground(new java.awt.Color(255, 255, 255));
+        year.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        year.setForeground(new java.awt.Color(0, 0, 0));
+        year.setText("YEAR 1 SEM 1");
 
         registerButton1.setBackground(new java.awt.Color(0, 255, 0));
         registerButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -114,25 +122,25 @@ public class StudentUnit extends javax.swing.JFrame {
             }
         });
 
-        tableUnits1.setBackground(new java.awt.Color(255, 255, 255));
-        tableUnits1.setForeground(new java.awt.Color(0, 0, 0));
-        tableUnits1.setModel(new javax.swing.table.DefaultTableModel(
+        tableUnits.setBackground(new java.awt.Color(255, 255, 255));
+        tableUnits.setForeground(new java.awt.Color(0, 0, 0));
+        tableUnits.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "", "Course Unit Code", "Course Name"
+                "", "Unit Code", "Unit Name"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tableUnits1);
+        jScrollPane2.setViewportView(tableUnits);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -143,7 +151,7 @@ public class StudentUnit extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(registerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(yearTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(yearTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -158,23 +166,22 @@ public class StudentUnit extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
                 .addComponent(yearTxt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(registerButton1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(yearTxt1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(year)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addComponent(registerButton)
-                .addGap(86, 86, 86))
+                .addGap(76, 76, 76))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
@@ -207,7 +214,7 @@ public class StudentUnit extends javax.swing.JFrame {
         });
         homeBtn.add(HomeBtn);
 
-        UnitsBtn.setText("UNITS");
+        UnitsBtn.setText("UNITS & SESSION");
         UnitsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UnitsBtnActionPerformed(evt);
@@ -269,52 +276,94 @@ public class StudentUnit extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(771, 563));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ShowSemester()
+    {
+        year.setText(studentHomeDashBoard.semester);
+    }
+    
+    void PopulateUnits()
+    {
+        try {
+            String unitTable = "SELECT UnitID, UnitName FROM unit "
+                    + "WHERE SemID = (SELECT SemID FROM student WHERE RegNO = '" + userDetails.getUsername() + "')"
+                    + "AND CourseID = (SELECT CourseID FROM student WHERE RegNO = '" + userDetails.getUsername() + "')";
+            
+            ps = ConnectionDatabase.DbConnection().prepareStatement(unitTable);
+            rs = ps.executeQuery();
+            
+            DefaultTableModel tableModel = (DefaultTableModel) tableUnits.getModel();
+            
+            while(rs.next())
+            {
+                String unitCode = rs.getString("UnitID");
+                String unitName = rs.getString("UnitName");
+                
+                tableModel.addRow(new Object[]{selectUnit, unitCode, unitName});
+                System.out.println(unitCode);
+            }
+        } catch (Exception e) {
+        }
+    }
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        //bool is set to true
-        //if the user clicks this then set the button to uninteractible and also set a bool to true
-        //if true meaning it should display pending in the home dashboard
+        //if all booleans are selected then show successful message
         
+        //else tell the user to register all units for that semeseter
+        
+        //if registered then populate all the data to the home portal.
+        DefaultTableModel tableModel = (DefaultTableModel) tableUnits.getModel();
+
+        
+        if(selectUnit)
+        {
+            JOptionPane.showMessageDialog(null, "SUCCESSFULLY REGISTERED!");
+            registerButton.setEnabled(false);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "REGISTER ALL UNITS ALLOCATED!");
+        }
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
-        // TODO add your handling code here:
+        //if you are a new student then show that you were reported for session by the registrar
+        
     }//GEN-LAST:event_registerButton1ActionPerformed
 
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         // TODO add your handling code here:
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
+        studentHomeDashBoard.show();
         this.setVisible(false);
         this.dispose();
-
-        studentHomeDashBoard.show();
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void UnitsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnitsBtnActionPerformed
         // TODO add your handling code here:
         StudentUnit studentUnit = new StudentUnit();
 
+        studentUnit.show();
         this.setVisible(false);
         this.dispose();
-
-        studentUnit.show();
     }//GEN-LAST:event_UnitsBtnActionPerformed
 
     private void FeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeeBtnActionPerformed
         // TODO add your handling code here:
         StudentFee studentFee = new StudentFee();
-
+        studentFee.show();
         this.setVisible(false);
         this.dispose();
 
-        studentFee.show();
+        
     }//GEN-LAST:event_FeeBtnActionPerformed
 
     private void ExamsBtnMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_ExamsBtnMenuKeyPressed
@@ -324,32 +373,29 @@ public class StudentUnit extends javax.swing.JFrame {
     private void ExamsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExamsBtnActionPerformed
         // TODO add your handling code here:
         Examination studentExam = new Examination();
-
+        studentExam.show();
         this.setVisible(false);
         this.dispose();
 
-        studentExam.show();
+        
     }//GEN-LAST:event_ExamsBtnActionPerformed
 
     private void progressBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_progressBtnActionPerformed
         // TODO add your handling code here:
         StudentProgress studentProgress = new StudentProgress();
-
+        studentProgress.show();
         this.setVisible(false);
         this.dispose();
 
-        studentProgress.show();
+        
     }//GEN-LAST:event_progressBtnActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
         // TODO add your handling code here:
         StudentLogin login = new StudentLogin();
-
+        login.show();
         this.setVisible(false);
         this.dispose();
-
-        login.show();
-
     }//GEN-LAST:event_logOutActionPerformed
 
     private void homeBtnMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_homeBtnMenuSelected
@@ -360,10 +406,9 @@ public class StudentUnit extends javax.swing.JFrame {
         // TODO add your handling code here:
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
+        studentHomeDashBoard.show();
         this.setVisible(false);
         this.dispose();
-
-        studentHomeDashBoard.show();
     }//GEN-LAST:event_homeBtnActionPerformed
 
     /**
@@ -400,16 +445,6 @@ public class StudentUnit extends javax.swing.JFrame {
             }
         });
     }
-    
-    //show a list of courses offered in the current semeseter
-    public void PopulateCourses()
-    {
-        ArrayList<Programme>getCourses = new ArrayList<Programme>();
-        
-        //populate all courses from the semester id of the student who logged in
-        String courseQuery = "SELECT Course_Code, Course_Name FROM course WHERE SemId = ";
-        
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ExamsBtn;
@@ -427,9 +462,9 @@ public class StudentUnit extends javax.swing.JFrame {
     private javax.swing.JMenuItem progressBtn;
     private javax.swing.JButton registerButton;
     private javax.swing.JButton registerButton1;
+    private javax.swing.JTable reportSessionTable;
     private javax.swing.JTable tableUnits;
-    private javax.swing.JTable tableUnits1;
+    private javax.swing.JLabel year;
     private javax.swing.JLabel yearTxt;
-    private javax.swing.JLabel yearTxt1;
     // End of variables declaration//GEN-END:variables
 }

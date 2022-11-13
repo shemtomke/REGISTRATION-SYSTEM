@@ -151,19 +151,21 @@ public class StudentFee extends javax.swing.JFrame {
                     .addComponent(jSeparator1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(yearOfStudtDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(91, 91, 91)
-                                .addComponent(generateButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(yearOfStudtDropDown1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(92, 92, 92)
-                                .addComponent(generateButton1)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(yearOfStudtDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(generateButton))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(yearOfStudtDropDown1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(generateButton1))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 31, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -190,8 +192,6 @@ public class StudentFee extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
-
-        jLabel2.getAccessibleContext().setAccessibleName("FEE STRUCTURE");
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setForeground(new java.awt.Color(0, 0, 0));
@@ -223,7 +223,7 @@ public class StudentFee extends javax.swing.JFrame {
         });
         homeBtn.add(HomeBtn);
 
-        UnitsBtn.setText("UNITS");
+        UnitsBtn.setText("UNITS & SESSION");
         UnitsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UnitsBtnActionPerformed(evt);
@@ -292,34 +292,39 @@ public class StudentFee extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void generateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_generateButtonActionPerformed
+
+    private void generateButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_generateButton1ActionPerformed
+
     private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
         // TODO add your handling code here:
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
+        studentHomeDashBoard.show();
         this.setVisible(false);
         this.dispose();
-
-        studentHomeDashBoard.show();
     }//GEN-LAST:event_HomeBtnActionPerformed
 
     private void UnitsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnitsBtnActionPerformed
         // TODO add your handling code here:
         StudentUnit studentUnit = new StudentUnit();
 
+        studentUnit.show();
         this.setVisible(false);
         this.dispose();
-
-        studentUnit.show();
     }//GEN-LAST:event_UnitsBtnActionPerformed
 
     private void FeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FeeBtnActionPerformed
         // TODO add your handling code here:
         StudentFee studentFee = new StudentFee();
-
+        studentFee.show();
         this.setVisible(false);
         this.dispose();
 
-        studentFee.show();
     }//GEN-LAST:event_FeeBtnActionPerformed
 
     private void ExamsBtnMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_ExamsBtnMenuKeyPressed
@@ -329,31 +334,27 @@ public class StudentFee extends javax.swing.JFrame {
     private void ExamsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExamsBtnActionPerformed
         // TODO add your handling code here:
         Examination studentExam = new Examination();
-
+        studentExam.show();
         this.setVisible(false);
         this.dispose();
 
-        studentExam.show();
     }//GEN-LAST:event_ExamsBtnActionPerformed
 
     private void progressBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_progressBtnActionPerformed
         // TODO add your handling code here:
         StudentProgress studentProgress = new StudentProgress();
-
+        studentProgress.show();
         this.setVisible(false);
         this.dispose();
 
-        studentProgress.show();
     }//GEN-LAST:event_progressBtnActionPerformed
 
     private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
         // TODO add your handling code here:
         StudentLogin login = new StudentLogin();
-
+        login.show();
         this.setVisible(false);
         this.dispose();
-
-        login.show();
     }//GEN-LAST:event_logOutActionPerformed
 
     private void homeBtnMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_homeBtnMenuSelected
@@ -364,19 +365,10 @@ public class StudentFee extends javax.swing.JFrame {
         // TODO add your handling code here:
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
 
+        studentHomeDashBoard.show();
         this.setVisible(false);
         this.dispose();
-
-        studentHomeDashBoard.show();
     }//GEN-LAST:event_homeBtnActionPerformed
-
-    private void generateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_generateButtonActionPerformed
-
-    private void generateButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_generateButton1ActionPerformed
 
     /**
      * @param args the command line arguments

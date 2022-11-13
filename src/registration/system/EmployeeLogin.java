@@ -7,8 +7,12 @@ package registration.system;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static registration.system.StudentLogin.regDetails;
 
 /**
  *
@@ -21,6 +25,7 @@ public class EmployeeLogin extends javax.swing.JFrame {
     ResultSet rs = null;
     
     public String loginDetails;
+    public String roleID;
     
     /**
      * Creates new form LoginScreen
@@ -104,6 +109,11 @@ public class EmployeeLogin extends javax.swing.JFrame {
 
         EmployeePositionComboBox.setBackground(new java.awt.Color(255, 255, 255));
         EmployeePositionComboBox.setForeground(new java.awt.Color(0, 0, 0));
+        EmployeePositionComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmployeePositionComboBoxActionPerformed(evt);
+            }
+        });
 
         Back.setBackground(new java.awt.Color(255, 255, 255));
         Back.setForeground(new java.awt.Color(0, 0, 0));
@@ -200,49 +210,58 @@ public class EmployeeLogin extends javax.swing.JFrame {
         
         StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
         
-        //Login
-        String EmployeeTable = "SELECT* FROM employee WHERE EmployeeID = ?";
+        String employeeTable = "SELECT * FROM employee WHERE EmployeeID = ? AND RoleID = "
+                + "(SELECT RoleID FROM role WHERE role.Position = "
+                + "'" + EmployeePositionComboBox.getSelectedItem().toString() +"')";
         
-        
-        String user = 
-"SELECT student.regno, student.Password, advisor.advisorID, advisor.advisorPassword, adminoffice.adminID, adminoffcie.adminPassword FROM student, advisor, adminoffice WHERE student.regno OR advisor.advisorID OR adminoffice.adminID = ? AND student.studentPassword OR advisor.advisorPassword OR adminoffcie.adminPassword = ?";
-        
-        try 
-            {
-                //MULTIPLE CONNECTION?
-                //ps = connection.prepareStatement(studentTable);
-                ps = connection.prepareStatement(EmployeeTable);
+        try {
+                ps = connection.prepareStatement(employeeTable);
                  
                 ps.setString(1, usernameField.getText());
                 ps.setString(1, passwordField.getText());
-                
-                //got access to the specific row where the user has entered data
-                loginDetails = usernameField.getText();
-                System.out.println(loginDetails);
                 
                 rs = ps.executeQuery();
                 
                 if(rs.next())
                 {
-                    //Correct details
+                    //Correct details - match role and id
                     JOptionPane.showMessageDialog(null, "Successfully Logged In!");
-                   // studentHomeDashBoard.GetRegNo(loginDetails);
+                    
+                    loginDetails = rs.getString("EmployeeID");
+                    
+                    UserDetails userDetails = new UserDetails(loginDetails);
+                    
+                    System.out.println("LOGIN EMPLOYEE : " + loginDetails);
+                    
+                    switch (EmployeePositionComboBox.getSelectedIndex()) {
+                        //COD
+                        case 0:
+                            new COD().setVisible(true);
+                            break;
+                        //Dean
+                        case 1:
+                            new DeanSchoolDashBoard().setVisible(true);
+                            break;
+                        //Lec
+                        case 2:
+                            new LecturerDashBoard().setVisible(true);
+                            break;
+                    }
+
+                    System.out.println("LOGIN EMPLOYEE : " + loginDetails);
                     
                     //close login form
                     this.setVisible(false);
                     this.dispose();
+                }
+                else
+                {
+                    //Incorrect Details
+                    JOptionPane.showMessageDialog(null, "INVALID DETAILS!");
 
-                    //studentHomeDashBoard.show();
-                    
-                    if(loginDetails.startsWith("S")) //student login
-                    {
-                        //if user is employee then move to employee else student
-                        studentHomeDashBoard.show();
-                    }
-                    else if(loginDetails.startsWith("E/ADMIN")) //admin login
-                    {
-                        
-                    }
+                    //clear the form automatically
+                    usernameField.setText("");
+                    passwordField.setText("");
                 }
             }
             catch (Exception e)
@@ -264,26 +283,30 @@ public class EmployeeLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         ChooseUser chooseUser = new ChooseUser();
         
+        chooseUser.show();
         this.setVisible(false);
         this.dispose();
-        
-        chooseUser.show();
     }//GEN-LAST:event_BackActionPerformed
 
-      private void AddEmployeePosition() {
+    private void EmployeePositionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeePositionComboBoxActionPerformed
+
+    }//GEN-LAST:event_EmployeePositionComboBoxActionPerformed
+
+    private void AddEmployeePosition() {
         try {
             String position = "SELECT * FROM role";
             ps = connection.prepareStatement(position);
             
             rs = ps.executeQuery(position);
         
-        while(rs.next())
-        {
-            String positions= rs.getString("RoleName");
-
-            EmployeePositionComboBox.addItem(positions);
-        }
-        } catch (Exception e) {
+            while(rs.next())
+            {
+                String positions= rs.getString("Position");
+                roleID = rs.getString("RoleID");
+                EmployeePositionComboBox.addItem(positions);
+            }
+        } 
+        catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
