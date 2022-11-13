@@ -19,6 +19,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -40,6 +41,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
     public StudentHomeDashboard() {
         initComponents();
         DisplayStudent();
+        DisplayUnitsRegistered();
     }
 
     /**
@@ -59,7 +61,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         schoolLbl = new javax.swing.JLabel();
         feeAmount = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TableExams = new javax.swing.JTable();
+        unitsTable = new javax.swing.JTable();
         schoolLbl1 = new javax.swing.JLabel();
         courseLbl1 = new javax.swing.JLabel();
         semLbl1 = new javax.swing.JLabel();
@@ -111,19 +113,10 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         feeAmount.setText("FEE : 10,000.00");
         feeAmount.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(102, 102, 255)));
 
-        TableExams.setBackground(new java.awt.Color(204, 255, 204));
-        TableExams.setModel(new javax.swing.table.DefaultTableModel(
+        unitsTable.setBackground(new java.awt.Color(204, 255, 204));
+        unitsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "UNIT CODE", "UNIT NAME", "STATUS"
@@ -137,7 +130,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(TableExams);
+        jScrollPane1.setViewportView(unitsTable);
 
         schoolLbl1.setBackground(new java.awt.Color(255, 255, 255));
         schoolLbl1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -439,6 +432,29 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         
     }
     
+    void DisplayUnitsRegistered()
+    {
+        try {
+            String registeredUnits = "SELECT UnitID, UnitName, Status FROM unitregistration "
+                    + "WHERE RegNO = (SELECT RegNO FROM student WHERE RegNO = '" + userDetails.getUsername() + "')";
+            
+            ps = ConnectionDatabase.DbConnection().prepareStatement(registeredUnits);
+            rs = ps.executeQuery();
+            
+            DefaultTableModel tableModel = (DefaultTableModel) unitsTable.getModel();
+            
+            while(rs.next())
+            {
+                String unitCode = rs.getString("UnitID");
+                String unitName = rs.getString("UnitName");
+                String status = rs.getString("Status");
+                
+                tableModel.addRow(new Object[]{unitCode, unitName, status});
+            }
+        } catch (Exception e) {
+        }
+    }
+    
     public void DisplayStudent()
     {
         StudentLogin login = new StudentLogin();
@@ -487,7 +503,6 @@ String studentDetails = "SELECT student.FullName, student.RegNO, course.coursena
     private javax.swing.JMenuItem ExamsBtn;
     private javax.swing.JMenuItem FeeBtn;
     private javax.swing.JMenuItem HomeBtn;
-    private javax.swing.JTable TableExams;
     private javax.swing.JMenuItem UnitsBtn;
     private javax.swing.JLabel courseLbl;
     private javax.swing.JLabel courseLbl1;
@@ -506,6 +521,7 @@ String studentDetails = "SELECT student.FullName, student.RegNO, course.coursena
     private javax.swing.JLabel semLbl1;
     private javax.swing.JLabel studentNameLbl;
     private javax.swing.JLabel studentNameLbl1;
+    private javax.swing.JTable unitsTable;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -22,6 +22,8 @@ public class StudentUnit extends javax.swing.JFrame {
     StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
     UserDetails userDetails = new UserDetails(UserDetails.username);
     
+    DefaultTableModel tableModel;
+    
     PreparedStatement ps = null;
     ResultSet rs = null;
     
@@ -319,18 +321,57 @@ public class StudentUnit extends javax.swing.JFrame {
         //else tell the user to register all units for that semeseter
         
         //if registered then populate all the data to the home portal.
-        DefaultTableModel tableModel = (DefaultTableModel) tableUnits.getModel();
+        tableModel = (DefaultTableModel) tableUnits.getModel();
 
+        int index = 1;
         
-        if(selectUnit)
+        try 
         {
-            JOptionPane.showMessageDialog(null, "SUCCESSFULLY REGISTERED!");
-            registerButton.setEnabled(false);
-        }
-        else
+            String registerUnits = "INSERT INTO unitregistration("
+                            + "UnitRegID, RegNO, Status, UnitID, UnitName) values ("
+                            + "?,?,?,?,?)";
+
+            ps = ConnectionDatabase.DbConnection().prepareStatement(registerUnits);
+            
+            for (int row = 0; row < tableUnits.getRowCount(); row++) 
+            {
+                tableUnits.getValueAt(row, 0);
+
+                String unitCode = (String) tableUnits.getValueAt(row, 1);
+                String unitName = (String) tableUnits.getValueAt(row, 2);
+
+                ps.setInt(1, index);
+                ps.setString(2, userDetails.getUsername());
+                ps.setString(3, "Pending");
+                ps.setString(4, unitCode);
+                ps.setString(5, unitName);
+               
+                ps.addBatch();
+                ps.execute();
+
+                if((Boolean) tableUnits.getValueAt(row, 0))
+                {
+                    JOptionPane.showMessageDialog(null, "SUCCESSFULLY REGISTERED!");
+                    registerButton.setEnabled(false);
+                    index++;
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "REGISTER ALL UNITS ALLOCATED!");
+                }
+            }
+            
+            ps.executeBatch();
+            ConnectionDatabase.DbConnection().commit();
+            
+        } 
+        catch (Exception e) 
         {
-            JOptionPane.showMessageDialog(null, "REGISTER ALL UNITS ALLOCATED!");
+            
         }
+        
+        
+        
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void registerButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButton1ActionPerformed
