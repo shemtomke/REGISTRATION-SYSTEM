@@ -21,19 +21,28 @@ public class NewStudent extends javax.swing.JFrame {
     PreparedStatement ps = null;
     ResultSet rs = null;
     
-    String[] schoolID;
-    String lastDigits;
-    String item;
+    String lastDigits, item, schoolID;
+    
+    int incrementCode = 1;
+    String code = "000";
+    
     /**
      * Creates new form NewStudent
      */
     public NewStudent() {
         initComponents();
         connection = ConnectionDatabase.DbConnection();
-        DisplayStudentDetail();
+        //DisplayStudentDetail();
         AddSchoolItems();
         AddCounties();
-        
+        ListOfYears();
+    }
+    void ListOfYears()
+    {
+        for(int i=2012; i <= 2022; i++)
+        {
+            YearOfAdmission.addItem(Integer.toString(i));
+        }
     }
 
     void AddCounties()
@@ -52,8 +61,6 @@ public class NewStudent extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-        
     }
     private void AddSchoolItems()
     {
@@ -75,31 +82,11 @@ public class NewStudent extends javax.swing.JFrame {
     
     void DisplayStudentDetail() //reg and email
     {
-        for(int i=2012; i <= 2022; i++)
-        {
-            YearOfAdmission.addItem(Integer.toString(i));
-        }
+        // i.e SIST/0001/20
+        regNoLbl.setText(schoolID + "/" + code + incrementCode + "/" + lastDigits);
         
-        // schoolID / Lastperson then increment / year - last 2 digits
-        String schoolCode = "SIST";
-        
-        int incrementCode = 1;
-        
-        String code;
-        
-        if(incrementCode < 9)
-        {
-            code = "000";
-        }
-        else
-        {
-            code = "00";
-        }
-        
-        regNoLbl.setText(schoolCode + "/" + code + incrementCode + "/" + lastDigits);
-        
-        //schoolID number year @ email
-        schoolEmailLbl.setText(schoolCode + code + incrementCode + lastDigits + "@kisiiuniversity.ac.ke");
+        // i.e SIST000120@KISIIUNIVERSITY.AC.KE
+        schoolEmailLbl.setText(schoolID + code + incrementCode + lastDigits + "@kisiiuniversity.ac.ke");
         
     }
     
@@ -493,8 +480,6 @@ public class NewStudent extends javax.swing.JFrame {
         reg.show(true);
         this.setVisible(false);
         this.dispose();
-        
-        
     }//GEN-LAST:event_jMenu2MenuSelected
 
     private void createStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStudentBtnActionPerformed
@@ -504,16 +489,26 @@ public class NewStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_createStudentBtnActionPerformed
 
     private void schoolComboBoxComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_schoolComboBoxComponentAdded
-        // TODO add your handling code here:
-        for (int i = 0; i < schoolComboBox.getItemCount(); i++) {
-                System.out.println(schoolID[i]);
-            }
+
     }//GEN-LAST:event_schoolComboBoxComponentAdded
 
     private void schoolComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_schoolComboBoxActionPerformed
         //generate the SchoolID for REG NO
         item = schoolComboBox.getSelectedItem().toString();
-        
+        try {
+            String courses = "SELECT schoolID FROM school "
+                    + "WHERE SchoolName = '" + item + "'";
+            ps = connection.prepareStatement(courses);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                schoolID = rs.getString("schoolID");
+            }
+        } catch (Exception e) {
+            
+        }
         try {
             String departments = "SELECT DeptName FROM department "
                     + "WHERE SchoolID = (SELECT SchoolID FROM school WHERE SchoolName = '" 
@@ -527,10 +522,10 @@ public class NewStudent extends javax.swing.JFrame {
                 String departmentName = rs.getString("DeptName");
                 Department.addItem(departmentName);
             }
-        } catch (Exception e) {
+        } catch (Exception e) 
+        {
             
         }
-        
         try {
             String courses = "SELECT courseName FROM course "
                     + "WHERE SchoolID = (SELECT SchoolID FROM school WHERE SchoolName = '" 
@@ -574,7 +569,7 @@ public class NewStudent extends javax.swing.JFrame {
     private void YearOfAdmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearOfAdmissionActionPerformed
         // TODO add your handling code here:
         lastDigits= YearOfAdmission.getSelectedItem().toString().substring(YearOfAdmission.getSelectedItem().toString().length() - 2);
-        
+        DisplayStudentDetail();
     }//GEN-LAST:event_YearOfAdmissionActionPerformed
 
     private void DepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepartmentActionPerformed

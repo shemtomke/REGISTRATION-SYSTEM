@@ -57,6 +57,7 @@ public class StudentLogin extends javax.swing.JFrame
         usernameField = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
         Back = new javax.swing.JButton();
+        toggleBtn = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
@@ -117,6 +118,15 @@ public class StudentLogin extends javax.swing.JFrame
             }
         });
 
+        toggleBtn.setBackground(new java.awt.Color(255, 255, 255));
+        toggleBtn.setForeground(new java.awt.Color(0, 0, 0));
+        toggleBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registration/system/eye.png"))); // NOI18N
+        toggleBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -139,6 +149,8 @@ public class StudentLogin extends javax.swing.JFrame
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(285, 285, 285)
                             .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(toggleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -175,7 +187,9 @@ public class StudentLogin extends javax.swing.JFrame
                 .addGap(28, 28, 28)
                 .addComponent(PasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(toggleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
@@ -210,17 +224,6 @@ public class StudentLogin extends javax.swing.JFrame
                  
                 ps.setString(1, usernameField.getText());
                 ps.setString(1, passwordField.getText());
-                
-                /*try{
-                FileWriter UserId = new FileWriter("Logs.txt");
-                
-                UserId.write(loginDetails);
-                
-                    System.out.println("Reg Number is : " + loginDetails);
-                UserId.close();
-                }catch(IOException e) {
-                    System.out.println("An Error Occured");
-                }*/
                 
                 rs = ps.executeQuery();            
                 
@@ -278,6 +281,19 @@ public class StudentLogin extends javax.swing.JFrame
         chooseUser.show();
     }//GEN-LAST:event_BackActionPerformed
 
+    private void toggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleBtnActionPerformed
+        // TODO add your handling code here:
+        if(toggleBtn.isSelected())
+        {
+            passwordField.setEchoChar((char)0);
+        }
+        else
+        {
+            passwordField.setEchoChar('*');
+        }
+        
+    }//GEN-LAST:event_toggleBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -323,6 +339,7 @@ public class StudentLogin extends javax.swing.JFrame
     private javax.swing.JLabel loginInfoLabel;
     private javax.swing.JLabel logoKsu;
     private javax.swing.JPasswordField passwordField;
+    private javax.swing.JToggleButton toggleBtn;
     public javax.swing.JTextField usernameField;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables

@@ -67,6 +67,7 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         semLbl1 = new javax.swing.JLabel();
         regNumberLbl1 = new javax.swing.JLabel();
         studentNameLbl1 = new javax.swing.JLabel();
+        RegisterUnit = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         homeBtn = new javax.swing.JMenu();
         HomeBtn = new javax.swing.JMenuItem();
@@ -157,6 +158,8 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
         studentNameLbl1.setForeground(new java.awt.Color(0, 0, 0));
         studentNameLbl1.setText("NAME");
 
+        RegisterUnit.setText("RegisterUnit");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -186,6 +189,10 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
                                     .addComponent(courseLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(33, 33, 33))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RegisterUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +221,9 @@ public class StudentHomeDashboard extends javax.swing.JFrame implements Observer
                         .addComponent(courseLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(schoolLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(47, 47, 47)
+                .addGap(18, 18, 18)
+                .addComponent(RegisterUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
@@ -501,6 +510,7 @@ String studentDetails = "SELECT student.FullName, student.RegNO, course.coursena
     private javax.swing.JMenuItem ExamsBtn;
     private javax.swing.JMenuItem FeeBtn;
     private javax.swing.JMenuItem HomeBtn;
+    private javax.swing.JButton RegisterUnit;
     private javax.swing.JMenuItem UnitsBtn;
     private javax.swing.JLabel courseLbl;
     private javax.swing.JLabel courseLbl1;
