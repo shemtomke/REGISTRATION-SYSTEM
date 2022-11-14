@@ -35,6 +35,7 @@ public class NewStudent extends javax.swing.JFrame {
         //DisplayStudentDetail();
         AddSchoolItems();
         AddCounties();
+        AddCourses();
         ListOfYears();
     }
     void ListOfYears()
@@ -79,6 +80,74 @@ public class NewStudent extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }  
+    void AddDepartments()
+    {
+        /*try {
+            String departments = "SELECT * FROM department";
+            ps = connection.prepareStatement(departments);
+            
+            rs = ps.executeQuery(departments);
+        
+        while(rs.next())
+        {
+            String department = rs.getString("DeptName");
+            Department.addItem(department);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }*/
+        try {
+            String departments = "SELECT DeptName FROM department "
+                    + "WHERE SchoolID = (SELECT SchoolID FROM school WHERE SchoolName = '" 
+                    + item + "')";
+            ps = connection.prepareStatement(departments);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                String departmentName = rs.getString("DeptName");
+                Department.addItem(departmentName);
+            }
+        } catch (Exception e) 
+        {
+            
+        }
+    }
+    private void AddCourses()
+    {
+        /*try {
+            String courses = "SELECT * FROM course";
+            ps = connection.prepareStatement(courses);
+            
+            rs = ps.executeQuery(courses);
+        
+        while(rs.next())
+        {
+            String courseName = rs.getString("CourseName");
+            course.addItem(courseName);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }*/
+        try {
+            String courses = "SELECT courseName FROM course "
+                    + "WHERE SchoolID = (SELECT SchoolID FROM school WHERE"
+                    + "SchoolName = '" + item + "')";
+            
+            ps = connection.prepareStatement(courses);
+            
+            rs = ps.executeQuery(courses);
+            
+            while(rs.next())
+            {
+                String courseName = rs.getString("CourseName");
+                course.addItem(courseName);
+            }
+            
+        } catch (Exception e) {
+        }
+    }
     
     void DisplayStudentDetail() //reg and email
     {
@@ -505,39 +574,6 @@ public class NewStudent extends javax.swing.JFrame {
             while(rs.next())
             {
                 schoolID = rs.getString("schoolID");
-            }
-        } catch (Exception e) {
-            
-        }
-        try {
-            String departments = "SELECT DeptName FROM department "
-                    + "WHERE SchoolID = (SELECT SchoolID FROM school WHERE SchoolName = '" 
-                    + item + "')";
-            ps = connection.prepareStatement(departments);
-            
-            rs = ps.executeQuery();
-            
-            while(rs.next())
-            {
-                String departmentName = rs.getString("DeptName");
-                Department.addItem(departmentName);
-            }
-        } catch (Exception e) 
-        {
-            
-        }
-        try {
-            String courses = "SELECT courseName FROM course "
-                    + "WHERE SchoolID = (SELECT SchoolID FROM school WHERE SchoolName = '" 
-                    + item + "')";
-            ps = connection.prepareStatement(courses);
-            
-            rs = ps.executeQuery();
-            
-            while(rs.next())
-            {
-                String courseName = rs.getString("courseName");
-                course.addItem(courseName);
             }
         } catch (Exception e) {
             

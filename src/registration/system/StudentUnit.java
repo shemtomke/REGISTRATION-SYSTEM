@@ -376,12 +376,13 @@ public class StudentUnit extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(null, "SUCCESSFULLY REGISTERED!");
                     registerButton.setEnabled(false);
-                    index++;
+                    
                 }
                 else
                 {
                     JOptionPane.showMessageDialog(null, "REGISTER ALL UNITS ALLOCATED!");
                 }
+                index++;
             }
             
             ps.executeBatch();
