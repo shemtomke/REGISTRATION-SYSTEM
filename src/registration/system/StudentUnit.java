@@ -29,6 +29,7 @@ public class StudentUnit extends javax.swing.JFrame {
     
     boolean selectUnit = false;
     String unitID;
+    int index;
     
     /**
      * Creates new form StudentUnit
@@ -346,7 +347,7 @@ public class StudentUnit extends javax.swing.JFrame {
         //if registered then populate all the data to the home portal.
         tableModel = (DefaultTableModel) tableUnits.getModel();
 
-        int index = 3;
+        
         
         try 
         {

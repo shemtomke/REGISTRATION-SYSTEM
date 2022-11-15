@@ -6,6 +6,7 @@ package registration.system;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,7 +39,7 @@ public class CodRegisterUnits extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         approvalTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        approveBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jLabel2 = new javax.swing.JLabel();
@@ -80,10 +81,10 @@ public class CodRegisterUnits extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(approvalTable);
 
-        jButton1.setText("Approve Units");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        approveBtn.setText("Approve Units");
+        approveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                approveBtnActionPerformed(evt);
             }
         });
 
@@ -168,7 +169,7 @@ public class CodRegisterUnits extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(approveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(266, 266, 266)
@@ -185,7 +186,7 @@ public class CodRegisterUnits extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(119, 119, 119)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(approveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -284,7 +285,25 @@ public class CodRegisterUnits extends javax.swing.JFrame {
     void ApproveUnits()
     {
         //change the pending to approved
+        //add students units from
+        String registeredUnits  = "UPDATE unitregistration SET Status = 'Approved' WHERE UnitRegID = ?";
         
+        try {
+            ps = ConnectionDatabase.DbConnection().prepareStatement(registeredUnits);
+            
+            ps.setString(1, "APPROVED!");
+            
+            rs = ps.executeQuery();
+            
+            DefaultTableModel tableModel = (DefaultTableModel) approvalTable.getModel();
+            
+            while(rs.next())
+            {
+                JOptionPane.showMessageDialog(null,"APPROVED STUDENTS!");
+                
+            }
+        } catch (Exception e) {
+        }
     }
     private void HOMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HOMEActionPerformed
         // TODO add your handling code here:
@@ -318,9 +337,11 @@ public class CodRegisterUnits extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void approveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        ApproveUnits();
+    }//GEN-LAST:event_approveBtnActionPerformed
 
     private void UNITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UNITSActionPerformed
         // TODO add your handling code here:
@@ -374,9 +395,9 @@ public class CodRegisterUnits extends javax.swing.JFrame {
     private javax.swing.JMenuItem UNITS;
     private javax.swing.JSpinner YearCohort;
     private javax.swing.JTable approvalTable;
+    private javax.swing.JButton approveBtn;
     private javax.swing.JButton clearUnitBtn;
     private javax.swing.JComboBox<String> courseCode;
-    private javax.swing.JButton jButton1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

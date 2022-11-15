@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static registration.system.StudentHomeDashboard.unitsTable;
 
 /**
  *
@@ -20,6 +22,10 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
     ResultSet rs = null;
     
     UserDetails userDetails = new UserDetails(UserDetails.username);
+    
+    String Grade;
+    int totalValue, result, cat, assignment, exams;
+    
     /**
      * Creates new form LecturerDashBoard
      */
@@ -29,6 +35,9 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         GetLecturerDetails();
         GetUnits();
         OnUnitChange();
+        
+        AddMarksBtn.setEnabled(false);
+        //CalculateMarks();
     }
 
     /**
@@ -46,21 +55,26 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        marksTable = new javax.swing.JTable();
         unitComboBox = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         regTxtShow = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        assignmentValue = new javax.swing.JTextField();
+        catValue = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        examValue = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         inputReg = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        AddMarksBtn = new javax.swing.JButton();
         unitName = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        totalLbl = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        gradeTxt = new javax.swing.JLabel();
+        calculateMarksBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -84,7 +98,7 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("REG NO:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        marksTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -100,7 +114,7 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(marksTable);
 
         unitComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,11 +135,21 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("ASSIGNMENT");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        assignmentValue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        assignmentValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        assignmentValue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                assignmentValueKeyTyped(evt);
+            }
+        });
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        catValue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        catValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        catValue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                catValueKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
@@ -137,8 +161,13 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("EXAM");
 
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        examValue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        examValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        examValue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                examValueKeyTyped(evt);
+            }
+        });
 
         searchBtn.setText("SEARCH");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -152,10 +181,44 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("REG NO:");
 
-        jButton2.setText("CALCULATE");
+        AddMarksBtn.setText("ADD MARKS");
+        AddMarksBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddMarksBtnActionPerformed(evt);
+            }
+        });
 
         unitName.setBackground(new java.awt.Color(255, 255, 255));
         unitName.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("TOTAL ");
+
+        totalLbl.setBackground(new java.awt.Color(255, 255, 255));
+        totalLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        totalLbl.setForeground(new java.awt.Color(0, 0, 0));
+        totalLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalLbl.setText("0");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("GRADE");
+
+        gradeTxt.setBackground(new java.awt.Color(255, 255, 255));
+        gradeTxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        gradeTxt.setForeground(new java.awt.Color(0, 0, 0));
+        gradeTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gradeTxt.setText("-");
+
+        calculateMarksBtn.setText("CALCULATE");
+        calculateMarksBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculateMarksBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,48 +229,59 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(unitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(unitName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(regTxtShow, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(inputReg)))
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(searchBtn)
-                                .addGap(163, 163, 163)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField3)))
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(unitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(unitName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton2)))
-                        .addGap(14, 14, 14)))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(regTxtShow, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inputReg)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(searchBtn)
+                        .addGap(163, 163, 163)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(AddMarksBtn))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(assignmentValue, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                            .addComponent(catValue)
+                            .addComponent(examValue))
+                        .addGap(14, 14, 14))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(totalLbl)
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(gradeTxt)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(calculateMarksBtn)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -226,25 +300,33 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(assignmentValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(catValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(examValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(regTxtShow, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalLbl)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gradeTxt))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(calculateMarksBtn)
+                    .addComponent(AddMarksBtn))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
         );
 
         jMenu1.setText("=");
@@ -333,7 +415,75 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         {
         }
     }
+    void CalculateMarks()
+    {
+        try {
+            assignment = Integer.parseInt(assignmentValue.getText());
+            cat = Integer.parseInt(catValue.getText());
+            exams = Integer.parseInt(examValue.getText());
+
+            totalValue = CalculateAverageCat(cat, assignment) + exams;
+            totalLbl.setText(totalValue + "");
+
+            if(totalValue > 69)
+            {
+                Grade = "A";
+            }
+            else if(totalValue> 59 && totalValue < 70)
+            {
+                Grade = "B";
+            }
+            else if(totalValue> 49 && totalValue < 60)
+            {
+                Grade = "C";
+            }
+            else if(totalValue> 39 && totalValue < 50)
+            {
+                Grade = "D";
+            }
+            else
+            {
+                Grade = "F";
+            }
+            
+            gradeTxt.setText(Grade);
+            
+            //check if they are valid marks
+            if((exams > 70 || exams < 0) || (assignment > 30 && assignment < 0) || (cat > 30 || cat < 0))
+            {
+                JOptionPane.showMessageDialog(null, "Exceeded Mark LIMIT!");
+                
+                assignmentValue.setText("");
+                gradeTxt.setText("");
+                catValue.setText("");
+                assignmentValue.setText("");
+                totalLbl.setText("");
+                examValue.setText("");
+                AddMarksBtn.setEnabled(false);
+            }
+            else
+            {
+                AddMarksBtn.setEnabled(true);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ENTER VALID MARKS!");
+            
+            assignmentValue.setText("");
+            gradeTxt.setText("");
+            catValue.setText("");
+            assignmentValue.setText("");
+            totalLbl.setText("");
+            examValue.setText("");
+        }
+        
+    }
     
+    int CalculateAverageCat(int catMarks, int assignmentMarks)
+    {
+        int avg = ((catMarks + assignmentMarks) * 30 ) / 60;
+        return avg;
+    }
     void SearchStudent()
     {
         //check if the student is enrolled to that unit - doing the unit
@@ -368,14 +518,101 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
             
             rs = ps.executeQuery();
             
-            while (rs.next()) 
+            if(rs.next()) 
             {                
                 regTxtShow.setText(rs.getString("RegNO"));
+                JOptionPane.showMessageDialog(null, "Student Found!");
+                inputReg.setText("");
+                
+            }
+            else
+            {
+                regTxtShow.setText("This student does not exist");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "This student does not exist");
         }
     }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void catValueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_catValueKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c))
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_catValueKeyTyped
+
+    private void examValueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_examValueKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c))
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_examValueKeyTyped
+
+    private void assignmentValueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_assignmentValueKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c))
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_assignmentValueKeyTyped
+
+    private void AddMarksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddMarksBtnActionPerformed
+        // TODO add your handling code here:
+        
+        //check if all details are entered and 
+        try {
+            String marks = "INSERT INTO results "
+                    + "(ResultsID, Assignment, Cat, Exam, RegNO, UnitID)"
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
+            
+            ps = ConnectionDatabase.DbConnection().prepareStatement(marks);
+            
+            ps.setInt(1, result++);
+            ps.setInt(2, assignment);
+            ps.setInt(3, cat);
+            ps.setInt(4, exams);
+            ps.setString(5, regTxtShow.getText());
+            ps.setString(6, unitComboBox.getSelectedItem().toString());
+            
+            rs = ps.executeQuery();
+            
+            DefaultTableModel tableModel = (DefaultTableModel) marksTable.getModel();
+            
+            if(rs.next())
+            {
+                tableModel.addRow(new Object[]{regTxtShow.getText(), assignment, cat, exams, totalValue, Grade});
+                
+                JOptionPane.showMessageDialog(null, "SUCCESSFUL!");
+                
+                assignmentValue.setText("");
+                gradeTxt.setText("");
+                catValue.setText("");
+                assignmentValue.setText("");
+                totalLbl.setText("");
+                examValue.setText("");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "FAILED!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_AddMarksBtnActionPerformed
+
+    private void calculateMarksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateMarksBtnActionPerformed
+        // TODO add your handling code here:
+        
+        CalculateMarks();
+    }//GEN-LAST:event_calculateMarksBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -413,34 +650,39 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddMarksBtn;
+    private javax.swing.JTextField assignmentValue;
+    private javax.swing.JButton calculateMarksBtn;
+    private javax.swing.JTextField catValue;
+    private javax.swing.JTextField examValue;
+    private javax.swing.JLabel gradeTxt;
     private javax.swing.JTextField inputReg;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable marksTable;
     private javax.swing.JLabel nameLbl;
     private javax.swing.JLabel regTxtShow;
     private javax.swing.JButton searchBtn;
+    private javax.swing.JLabel totalLbl;
     private javax.swing.JComboBox<String> unitComboBox;
     private javax.swing.JLabel unitName;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 }

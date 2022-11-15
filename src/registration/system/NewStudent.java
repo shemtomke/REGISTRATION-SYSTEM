@@ -34,6 +34,8 @@ public class NewStudent extends javax.swing.JFrame {
         connection = ConnectionDatabase.DbConnection();
         //DisplayStudentDetail();
         AddSchoolItems();
+        AddCoursesItems();
+        AddDepartmentItems();
         AddCounties();
         ListOfYears();
     }
@@ -79,6 +81,42 @@ public class NewStudent extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }  
+    
+    private void AddDepartmentItems()
+    {
+        String schools = "SELECT * FROM department";
+        try {
+            
+            ps = connection.prepareStatement(schools);
+            
+            rs = ps.executeQuery();
+        
+            while(rs.next())
+            {
+                Department.addItem(rs.getString("DptName"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    } 
+    
+    private void AddCoursesItems()
+    {
+        String schools = "SELECT * FROM department";
+        try {
+            
+            ps = connection.prepareStatement(schools);
+            
+            rs = ps.executeQuery();
+        
+            while(rs.next())
+            {
+                course.addItem(rs.getString("courseName"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    } 
     void AddDepartments()
     {
         String departments = "SELECT DeptName FROM department "
