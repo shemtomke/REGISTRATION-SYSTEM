@@ -35,7 +35,6 @@ public class NewStudent extends javax.swing.JFrame {
         //DisplayStudentDetail();
         AddSchoolItems();
         AddCounties();
-        AddCourses();
         ListOfYears();
     }
     void ListOfYears()
@@ -65,89 +64,93 @@ public class NewStudent extends javax.swing.JFrame {
     }
     private void AddSchoolItems()
     {
+        String schools = "SELECT * FROM school";
         try {
-            String schools = "SELECT * FROM school";
+            
             ps = connection.prepareStatement(schools);
             
-            rs = ps.executeQuery(schools);
+            rs = ps.executeQuery();
         
-        while(rs.next())
-        {
-            String school = rs.getString("SchoolName");
-            schoolComboBox.addItem(school);
-        }
+            while(rs.next())
+            {
+                schoolComboBox.addItem(rs.getString("SchoolName"));
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }  
     void AddDepartments()
     {
-        /*try {
-            String departments = "SELECT * FROM department";
-            ps = connection.prepareStatement(departments);
-            
-            rs = ps.executeQuery(departments);
-        
-        while(rs.next())
-        {
-            String department = rs.getString("DeptName");
-            Department.addItem(department);
-        }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-        try {
-            String departments = "SELECT DeptName FROM department "
+        String departments = "SELECT DeptName FROM department "
                     + "WHERE SchoolID = (SELECT SchoolID FROM school WHERE SchoolName = '" 
-                    + item + "')";
+                    + schoolComboBox.getSelectedItem() + "')";
+        try {
             ps = connection.prepareStatement(departments);
             
             rs = ps.executeQuery();
+            //Department.removeAllItems();
             
             while(rs.next())
             {
-                String departmentName = rs.getString("DeptName");
-                Department.addItem(departmentName);
+                Department.addItem(rs.getString("DeptName"));
             }
-        } catch (Exception e) 
+        } catch (Exception e)
         {
             
         }
     }
     private void AddCourses()
     {
-        /*try {
-            String courses = "SELECT * FROM course";
-            ps = connection.prepareStatement(courses);
-            
-            rs = ps.executeQuery(courses);
+        String courses = "SELECT CourseName FROM course "
+                    + "WHERE DeptID = (SELECT DeptID FROM department WHERE "
+                    + "DeptName = '" + Department.getSelectedItem() + "')";
         
-        while(rs.next())
-        {
-            String courseName = rs.getString("CourseName");
-            course.addItem(courseName);
-        }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
         try {
-            String courses = "SELECT courseName FROM course "
-                    + "WHERE SchoolID = (SELECT SchoolID FROM school WHERE"
-                    + "SchoolName = '" + item + "')";
-            
             ps = connection.prepareStatement(courses);
             
-            rs = ps.executeQuery(courses);
+            rs = ps.executeQuery();
+            course.removeAllItems();
             
             while(rs.next())
             {
-                String courseName = rs.getString("CourseName");
-                course.addItem(courseName);
+                course.addItem(rs.getString("CourseName"));
             }
             
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
+            
         }
     }
+    
+    private void GetCourseDuration()
+    {
+        try {
+            String courses = "SELECT * FROM course "
+                    + "WHERE CourseName = '"
+                    + course.getSelectedItem() + "'";
+            
+            ps = connection.prepareStatement(courses);
+            
+            rs = ps.executeQuery(courses);
+            course.removeAllItems();
+            
+            while(rs.next())
+            {
+                courseDurationLbl.setText(rs.getString("Duration"));
+            }
+            
+        } catch (Exception e) 
+        {
+            
+        }
+    }
+    //on click  field ID max 8 characters and must be int
+    
+    //on click field PHONE number - 10 characters max and must be int
+    
+    //Date picker
+    
+    //
     
     void DisplayStudentDetail() //reg and email
     {
@@ -156,7 +159,6 @@ public class NewStudent extends javax.swing.JFrame {
         
         // i.e SIST000120@KISIIUNIVERSITY.AC.KE
         schoolEmailLbl.setText(schoolID + code + incrementCode + lastDigits + "@kisiiuniversity.ac.ke");
-        
     }
     
     /**
@@ -174,7 +176,6 @@ public class NewStudent extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         IdNumberField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        grade = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         schoolComboBox = new javax.swing.JComboBox<>();
@@ -202,7 +203,8 @@ public class NewStudent extends javax.swing.JFrame {
         dateOfBirth = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         YearOfAdmission = new javax.swing.JComboBox<>();
-        jLabel17 = new javax.swing.JLabel();
+        courseDurationLbl = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
 
@@ -214,6 +216,8 @@ public class NewStudent extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Student Name");
+
+        studentNameField.setToolTipText("");
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("ID Number");
@@ -249,6 +253,11 @@ public class NewStudent extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Department");
 
+        Department.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                DepartmentItemStateChanged(evt);
+            }
+        });
         Department.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DepartmentActionPerformed(evt);
@@ -258,6 +267,11 @@ public class NewStudent extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Course");
 
+        course.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                courseItemStateChanged(evt);
+            }
+        });
         course.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 courseActionPerformed(evt);
@@ -340,11 +354,13 @@ public class NewStudent extends javax.swing.JFrame {
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("0");
-        jLabel17.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        courseDurationLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        courseDurationLbl.setForeground(new java.awt.Color(0, 0, 0));
+        courseDurationLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        courseDurationLbl.setText("0");
+        courseDurationLbl.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -377,11 +393,11 @@ public class NewStudent extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(grade, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(studentNameField)
                                 .addComponent(IdNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
-                            .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -420,7 +436,7 @@ public class NewStudent extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(YearOfAdmission, 0, 111, Short.MAX_VALUE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(courseDurationLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(86, 86, 86))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
@@ -442,8 +458,8 @@ public class NewStudent extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(grade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
+                            .addComponent(jLabel3)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
@@ -478,7 +494,7 @@ public class NewStudent extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(courseDurationLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(schoolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)
@@ -552,9 +568,23 @@ public class NewStudent extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2MenuSelected
 
     private void createStudentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createStudentBtnActionPerformed
-        // TODO add your handling code here:
-        
-        
+        // TODO add your handling code here
+        try {
+            String createStudent = "INSERT INTO student (RegNo, FullName, SchoolID, SemID, CourseID, PhoneNO, "
+                    + "County, Status, Gender, DOB, KSCEGrade, IDNumber) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            //use school id as var to get the school ID and insert in the table
+            //for new students auto - 1.1 for year 1 sem 1
+            //var course ID to get the course ID
+            //DOB FORMAT - 2001 - 01 -14
+            
+            //increment the code - reg
+            
+            //display success message else show an error message - fill all details
+            
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_createStudentBtnActionPerformed
 
     private void schoolComboBoxComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_schoolComboBoxComponentAdded
@@ -563,26 +593,11 @@ public class NewStudent extends javax.swing.JFrame {
 
     private void schoolComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_schoolComboBoxActionPerformed
         //generate the SchoolID for REG NO
-        item = schoolComboBox.getSelectedItem().toString();
-        try {
-            String courses = "SELECT schoolID FROM school "
-                    + "WHERE SchoolName = '" + item + "'";
-            ps = connection.prepareStatement(courses);
-            
-            rs = ps.executeQuery();
-            
-            while(rs.next())
-            {
-                schoolID = rs.getString("schoolID");
-            }
-        } catch (Exception e) {
-            
-        }
     }//GEN-LAST:event_schoolComboBoxActionPerformed
 
     private void schoolComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_schoolComboBoxItemStateChanged
         // TODO add your handling code here:
-        
+        //AddDepartments();
     }//GEN-LAST:event_schoolComboBoxItemStateChanged
 
     private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
@@ -611,6 +626,16 @@ public class NewStudent extends javax.swing.JFrame {
     private void DepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepartmentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DepartmentActionPerformed
+
+    private void DepartmentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DepartmentItemStateChanged
+
+        //AddCourses();
+    }//GEN-LAST:event_DepartmentItemStateChanged
+
+    private void courseItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_courseItemStateChanged
+        // TODO add your handling code here:
+        GetCourseDuration();
+    }//GEN-LAST:event_courseItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -653,10 +678,11 @@ public class NewStudent extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> YearOfAdmission;
     private javax.swing.JComboBox<String> countyComboBox;
     private javax.swing.JComboBox<String> course;
+    private javax.swing.JLabel courseDurationLbl;
     private javax.swing.JButton createStudentBtn;
     private javax.swing.JTextField dateOfBirth;
     private javax.swing.JComboBox<String> genderComboBox;
-    private javax.swing.JTextField grade;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -665,7 +691,6 @@ public class NewStudent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

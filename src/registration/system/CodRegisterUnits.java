@@ -4,17 +4,26 @@
  */
 package registration.system;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ryanokal
  */
 public class CodRegisterUnits extends javax.swing.JFrame {
 
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    
     /**
      * Creates new form CodRegisterUnits
      */
     public CodRegisterUnits() {
         initComponents();
+        
+        PopulateStudentUnits();
     }
 
     /**
@@ -28,7 +37,7 @@ public class CodRegisterUnits extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        approvalTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
@@ -43,34 +52,40 @@ public class CodRegisterUnits extends javax.swing.JFrame {
         clearUnitBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        HOME = new javax.swing.JMenuItem();
+        APPROVEUNITS = new javax.swing.JMenuItem();
+        UNITS = new javax.swing.JMenuItem();
+        DEFER = new javax.swing.JMenuItem();
+        LOGOUT = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        approvalTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "RegNo", "UnitCode", "UnitName", "ApproveStatus"
+                "RegNo", "UnitCode", "UnitName", "Approval Status"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(approvalTable);
 
         jButton1.setText("Approve Units");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -86,11 +101,7 @@ public class CodRegisterUnits extends javax.swing.JFrame {
 
         jLabel3.setText("UnitCode");
 
-        unitCode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel4.setText("CourseCode");
-
-        courseCode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setText("Cohort");
 
@@ -152,10 +163,11 @@ public class CodRegisterUnits extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -167,7 +179,7 @@ public class CodRegisterUnits extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,15 +187,59 @@ public class CodRegisterUnits extends javax.swing.JFrame {
                         .addGap(119, 119, 119)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenu1.setText("=");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        HOME.setText("HOME");
+        HOME.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HOMEActionPerformed(evt);
+            }
+        });
+        jMenu1.add(HOME);
+
+        APPROVEUNITS.setText("APPROVE & REGISTER");
+        APPROVEUNITS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                APPROVEUNITSActionPerformed(evt);
+            }
+        });
+        jMenu1.add(APPROVEUNITS);
+
+        UNITS.setText("ADD NEW UNIT");
+        UNITS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UNITSActionPerformed(evt);
+            }
+        });
+        jMenu1.add(UNITS);
+
+        DEFER.setText("DEFERMENT");
+        DEFER.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DEFERActionPerformed(evt);
+            }
+        });
+        jMenu1.add(DEFER);
+
+        LOGOUT.setText("LOG OUT");
+        LOGOUT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LOGOUTActionPerformed(evt);
+            }
+        });
+        jMenu1.add(LOGOUT);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -201,6 +257,78 @@ public class CodRegisterUnits extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(765, 585));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    void PopulateStudentUnits()
+    {
+        //add students units from
+        String registeredUnits  = "SELECT * FROM unitregistration";
+        
+        try {
+            ps = ConnectionDatabase.DbConnection().prepareStatement(registeredUnits);
+            rs = ps.executeQuery();
+            
+            DefaultTableModel tableModel = (DefaultTableModel) approvalTable.getModel();
+            
+            while(rs.next())
+            {
+                String regNo = rs.getString("RegNO");
+                String status = rs.getString("status");
+                String unitCode = rs.getString("UnitID");
+                String unitName = rs.getString("UnitName");
+                
+                tableModel.addRow(new Object[]{regNo, unitCode, unitName, status});
+            }
+        } catch (Exception e) {
+        }
+    }
+    void ApproveUnits()
+    {
+        //change the pending to approved
+        
+    }
+    private void HOMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HOMEActionPerformed
+        // TODO add your handling code here:
+        new COD().setVisible(true);
+        
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_HOMEActionPerformed
+
+    private void APPROVEUNITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_APPROVEUNITSActionPerformed
+        // TODO add your handling code here:
+        new CodRegisterUnits().setVisible(true);
+
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_APPROVEUNITSActionPerformed
+
+    private void DEFERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DEFERActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DEFERActionPerformed
+
+    private void LOGOUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGOUTActionPerformed
+        // TODO add your handling code here:
+        new EmployeeLogin().setVisible(true);
+
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_LOGOUTActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void UNITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UNITSActionPerformed
+        // TODO add your handling code here:
+        new AddUnitCOD().setVisible(true);
+        
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_UNITSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,8 +366,14 @@ public class CodRegisterUnits extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem APPROVEUNITS;
     private javax.swing.JButton AddUnitBtn;
+    private javax.swing.JMenuItem DEFER;
+    private javax.swing.JMenuItem HOME;
+    private javax.swing.JMenuItem LOGOUT;
+    private javax.swing.JMenuItem UNITS;
     private javax.swing.JSpinner YearCohort;
+    private javax.swing.JTable approvalTable;
     private javax.swing.JButton clearUnitBtn;
     private javax.swing.JComboBox<String> courseCode;
     private javax.swing.JButton jButton1;
@@ -250,11 +384,9 @@ public class CodRegisterUnits extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> unitCode;
     // End of variables declaration//GEN-END:variables
 }

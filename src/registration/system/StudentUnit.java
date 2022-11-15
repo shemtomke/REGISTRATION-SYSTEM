@@ -346,7 +346,7 @@ public class StudentUnit extends javax.swing.JFrame {
         //if registered then populate all the data to the home portal.
         tableModel = (DefaultTableModel) tableUnits.getModel();
 
-        int index = 1;
+        int index = 3;
         
         try 
         {
@@ -363,7 +363,7 @@ public class StudentUnit extends javax.swing.JFrame {
                 String unitCode = (String) tableUnits.getValueAt(row, 1);
                 String unitName = (String) tableUnits.getValueAt(row, 2);
 
-                ps.setInt(1, index);
+                ps.setInt(1, index++);
                 ps.setString(2, userDetails.getUsername());
                 ps.setString(3, "Pending");
                 ps.setString(4, unitCode);
@@ -371,7 +371,7 @@ public class StudentUnit extends javax.swing.JFrame {
                
                 ps.addBatch();
                 ps.execute();
-
+                
                 if((Boolean) tableUnits.getValueAt(row, 0))
                 {
                     JOptionPane.showMessageDialog(null, "SUCCESSFULLY REGISTERED!");
@@ -382,7 +382,6 @@ public class StudentUnit extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(null, "REGISTER ALL UNITS ALLOCATED!");
                 }
-                index++;
             }
             
             ps.executeBatch();

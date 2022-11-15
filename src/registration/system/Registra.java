@@ -47,6 +47,8 @@ public class Registra extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(755, 550));
@@ -57,7 +59,7 @@ public class Registra extends javax.swing.JFrame {
         AccountDetails.setBackground(new java.awt.Color(255, 204, 0));
         AccountDetails.setForeground(new java.awt.Color(0, 0, 0));
         AccountDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registration/system/Account Icon.png"))); // NOI18N
-        AccountDetails.setText("Account Details");
+        AccountDetails.setText("SHEM TOM");
 
         GraduationList.setBackground(new java.awt.Color(0, 0, 255));
         GraduationList.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -214,6 +216,20 @@ public class Registra extends javax.swing.JFrame {
 
         jMenu4.add(jMenu1);
 
+        jMenuItem3.setText("Create Session");
+        jMenu4.add(jMenuItem3);
+
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem4.setForeground(new java.awt.Color(255, 0, 0));
+        jMenuItem4.setText("LOG OUT");
+        jMenuItem4.setToolTipText("");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
         jMenuBar2.add(jMenu4);
 
         setJMenuBar(jMenuBar2);
@@ -259,14 +275,25 @@ public class Registra extends javax.swing.JFrame {
 
     private void GraduationListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraduationListActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_GraduationListActionPerformed
 
     private void LogOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutBtnActionPerformed
                 // TODO go back to Login Page
+                new AdminLogin().setVisible(true);
                 
                 this.setVisible(false);
                 this.dispose();
     }//GEN-LAST:event_LogOutBtnActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        //GO TO login
+        new AdminLogin().setVisible(true);
+        
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,6 +345,8 @@ public class Registra extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

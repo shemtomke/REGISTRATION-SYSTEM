@@ -23,7 +23,7 @@ import java.util.Scanner;
  *
  * @author SHEM TOM
  */
-public class StudentLogin extends javax.swing.JFrame
+public class AdminLogin extends javax.swing.JFrame
 {
     
     PreparedStatement ps = null;
@@ -34,7 +34,7 @@ public class StudentLogin extends javax.swing.JFrame
     /**
      * Creates new form LoginScreen
      */
-    public StudentLogin() {
+    public AdminLogin() {
         initComponents();
     }
 
@@ -77,7 +77,7 @@ public class StudentLogin extends javax.swing.JFrame
         loginInfoLabel.setBackground(new java.awt.Color(255, 255, 255));
         loginInfoLabel.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
         loginInfoLabel.setForeground(new java.awt.Color(0, 0, 0));
-        loginInfoLabel.setText("To Login enter your Student Admision No.and Password");
+        loginInfoLabel.setText("LOGIN AS THE INSTITUTION ADMIN");
 
         UsernameLabel.setBackground(new java.awt.Color(255, 255, 255));
         UsernameLabel.setFont(new java.awt.Font("Cascadia Mono", 0, 20)); // NOI18N
@@ -139,19 +139,6 @@ public class StudentLogin extends javax.swing.JFrame
                     .addComponent(logoKsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(welcomeLabel))
                 .addGap(280, 280, 280))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(337, 337, 337)
-                            .addComponent(UsernameLabel))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(285, 285, 285)
-                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(toggleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,10 +147,23 @@ public class StudentLogin extends javax.swing.JFrame
                         .addGap(320, 320, 320))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(316, 316, 316))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(loginInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(157, 157, 157))))
+                        .addGap(316, 316, 316))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(loginInfoLabel)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(337, 337, 337)
+                                    .addComponent(UsernameLabel))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(285, 285, 285)
+                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(toggleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,9 +178,9 @@ public class StudentLogin extends javax.swing.JFrame
                         .addComponent(Back)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(loginInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(UsernameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,25 +213,25 @@ public class StudentLogin extends javax.swing.JFrame
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
         // When the user has not insert any data to the form
-        StudentHomeDashboard studentHomeDashBoard = new StudentHomeDashboard();
+        Registra registrar = new Registra();
         
         //Login
-        String studentTable = "SELECT * FROM student WHERE regno = ?";
+        String registrarTable = "SELECT * FROM registrar WHERE RegistrarID = ?";
         
         try 
             {
-                ps = ConnectionDatabase.DbConnection().prepareStatement(studentTable);
+                ps = ConnectionDatabase.DbConnection().prepareStatement(registrarTable);
                  
                 ps.setString(1, usernameField.getText());
                 ps.setString(1, passwordField.getText());
                 
-                rs = ps.executeQuery();            
+                rs = ps.executeQuery();
                 
                 if(rs.next())
                 {
-                    StudentHomeDashboard studentHomeDashboard = new StudentHomeDashboard();
+                    regDetails = rs.getString("RegistrarID");
                     
-                    regDetails = rs.getString("RegNO");
+                    System.out.println(regDetails);
                     
                     UserDetails userDetails = new UserDetails(regDetails);
                     
@@ -240,7 +240,7 @@ public class StudentLogin extends javax.swing.JFrame
 
                     //close login form
                     
-                    new StudentHomeDashboard().setVisible(true);
+                    new Registra().setVisible(true);
                     
                     this.setVisible(false);
                     this.dispose();
@@ -311,21 +311,23 @@ public class StudentLogin extends javax.swing.JFrame
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StudentLogin().setVisible(true);
+                new AdminLogin().setVisible(true);
             }
         });
     }

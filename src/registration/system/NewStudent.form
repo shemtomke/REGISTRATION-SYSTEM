@@ -100,12 +100,12 @@
                           </Group>
                           <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="grade" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="studentNameField" max="32767" attributes="0"/>
                                   <Component id="IdNumberField" pref="241" max="32767" attributes="0"/>
                               </Group>
                               <Component id="phoneNumber" alignment="0" min="-2" pref="169" max="-2" attributes="0"/>
+                              <Component id="jComboBox1" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="47" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -157,7 +157,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="YearOfAdmission" pref="111" max="32767" attributes="0"/>
-                              <Component id="jLabel17" max="32767" attributes="0"/>
+                              <Component id="courseDurationLbl" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                       </Group>
@@ -186,8 +186,8 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="grade" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -235,7 +235,7 @@
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel9" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="jLabel17" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="courseDurationLbl" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -289,6 +289,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="studentNameField">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -310,8 +313,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="KCSE AGP Grade"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="grade">
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
@@ -343,6 +344,7 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="Department">
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="DepartmentItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DepartmentActionPerformed"/>
           </Events>
           <AuxValues>
@@ -359,6 +361,7 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="course">
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="courseItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="courseActionPerformed"/>
           </Events>
           <AuxValues>
@@ -542,7 +545,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel17">
+        <Component class="javax.swing.JLabel" name="courseDurationLbl">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -558,6 +561,28 @@
               </Border>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBox1">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="11">
+                <StringItem index="0" value="A"/>
+                <StringItem index="1" value="B+"/>
+                <StringItem index="2" value="B"/>
+                <StringItem index="3" value="B-"/>
+                <StringItem index="4" value="C+"/>
+                <StringItem index="5" value="C"/>
+                <StringItem index="6" value="C-"/>
+                <StringItem index="7" value="D+"/>
+                <StringItem index="8" value="D"/>
+                <StringItem index="9" value="D-"/>
+                <StringItem index="10" value="E"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

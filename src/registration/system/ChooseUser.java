@@ -30,7 +30,7 @@ public class ChooseUser extends javax.swing.JFrame {
         employeeBtn = new javax.swing.JButton();
         studentBtn = new javax.swing.JButton();
         logoKsu = new javax.swing.JLabel();
-        loginInfoLabel = new javax.swing.JLabel();
+        adminButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -40,6 +40,9 @@ public class ChooseUser extends javax.swing.JFrame {
 
         employeeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registration/system/1870038 (1).png"))); // NOI18N
         employeeBtn.setText("EMPLOYEE");
+        employeeBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        employeeBtn.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        employeeBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         employeeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 employeeBtnActionPerformed(evt);
@@ -48,6 +51,9 @@ public class ChooseUser extends javax.swing.JFrame {
 
         studentBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registration/system/354637 (1).png"))); // NOI18N
         studentBtn.setText("STUDENT");
+        studentBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        studentBtn.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        studentBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         studentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentBtnActionPerformed(evt);
@@ -58,43 +64,43 @@ public class ChooseUser extends javax.swing.JFrame {
         logoKsu.setForeground(new java.awt.Color(255, 255, 255));
         logoKsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registration/system/Kisii2.jpg"))); // NOI18N
 
-        loginInfoLabel.setBackground(new java.awt.Color(255, 255, 255));
-        loginInfoLabel.setFont(new java.awt.Font("Cascadia Mono", 0, 14)); // NOI18N
-        loginInfoLabel.setForeground(new java.awt.Color(0, 0, 0));
-        loginInfoLabel.setText("LOGIN");
+        adminButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registration/system/6024190 (2).png"))); // NOI18N
+        adminButton.setText("ADMIN");
+        adminButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        adminButton.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        adminButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        adminButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(logoKsu)
-                        .addGap(278, 278, 278))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(loginInfoLabel)
-                        .addGap(336, 336, 336))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(studentBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
-                .addComponent(employeeBtn)
-                .addGap(85, 85, 85))
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(studentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(logoKsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
+                .addComponent(employeeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(logoKsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(loginInfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(logoKsu, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addGap(100, 100, 100)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(adminButton)
                     .addComponent(employeeBtn)
                     .addComponent(studentBtn))
-                .addGap(111, 111, 111))
+                .addGap(110, 110, 110))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,22 +121,30 @@ public class ChooseUser extends javax.swing.JFrame {
     private void studentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentBtnActionPerformed
         // TODO add your handling code here:
         StudentLogin studentLogin = new StudentLogin();
-        
+        studentLogin.show();
         this.setVisible(false);
         this.dispose();
-           
-        studentLogin.show();
+        
     }//GEN-LAST:event_studentBtnActionPerformed
 
     private void employeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeBtnActionPerformed
         // TODO add your handling code here:
         EmployeeLogin employeeLogin = new EmployeeLogin();
         
+        employeeLogin.show();
         this.setVisible(false);
         this.dispose();
-            
-        employeeLogin.show();
     }//GEN-LAST:event_employeeBtnActionPerformed
+
+    private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
+        // TODO add your handling code here:
+        AdminLogin adminLogin = new AdminLogin();
+        
+        adminLogin.show();
+        
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_adminButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,9 +182,9 @@ public class ChooseUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton adminButton;
     private javax.swing.JButton employeeBtn;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel loginInfoLabel;
     private javax.swing.JLabel logoKsu;
     private javax.swing.JButton studentBtn;
     // End of variables declaration//GEN-END:variables
