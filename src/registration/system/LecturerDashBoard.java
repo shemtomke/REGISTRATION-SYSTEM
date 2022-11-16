@@ -24,7 +24,7 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
     UserDetails userDetails = new UserDetails(UserDetails.username);
     
     String Grade;
-    int totalValue, result, cat, assignment, exams;
+    int totalValue, result = 0, cat, assignment, exams;
     
     /**
      * Creates new form LecturerDashBoard
@@ -358,6 +358,29 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    void PopulateUnits()
+    {
+        /*try {
+            String unitTable = "SELECT UnitID, UnitName FROM unit "
+                    + "WHERE SemID = (SELECT SemID FROM student WHERE RegNO = '" + userDetails.getUsername() + "')"
+                    + "AND CourseID = (SELECT CourseID FROM student WHERE RegNO = '" + userDetails.getUsername() + "')";
+            
+            ps = ConnectionDatabase.DbConnection().prepareStatement(unitTable);
+            rs = ps.executeQuery();
+            
+            DefaultTableModel tableModel = (DefaultTableModel) tableUnits.getModel();
+            
+            while(rs.next())
+            {
+                String unitCode = rs.getString("UnitID");
+                String unitName = rs.getString("UnitName");
+                
+                tableModel.addRow(new Object[]{selectUnit, unitCode, unitName});
+                System.out.println(unitCode);
+            }
+        } catch (Exception e) {
+        }*/
+    }
     void GetLecturerDetails()
     {
         String lecName = "SELECT * FROM employee WHERE employeeID = '" + userDetails.getUsername() + "'";
@@ -512,7 +535,7 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         
         //search students doing that unit
         try {
-            String studentReg = "SELECT * FROM student";
+            String studentReg = "SELECT * FROM student WHERE regNo = '"+ inputReg.getText() +"'";
             
             ps = ConnectionDatabase.DbConnection().prepareStatement(studentReg);
             
@@ -570,7 +593,7 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
         //check if all details are entered and 
         try {
             String marks = "INSERT INTO results "
-                    + "(ResultsID, Assignment, Cat, Exam, RegNO, UnitID)"
+                    + "(ResultsID, Assignment, Cat, Exam, RegNO, UnitID) "
                     + "VALUES (?, ?, ?, ?, ?, ?)";
             
             ps = ConnectionDatabase.DbConnection().prepareStatement(marks);
@@ -579,30 +602,28 @@ public class LecturerDashBoard extends javax.swing.JFrame implements Observer{
             ps.setInt(2, assignment);
             ps.setInt(3, cat);
             ps.setInt(4, exams);
-            ps.setString(5, regTxtShow.getText());
+            ps.setString(5, regTxtShow.getText().toString());
             ps.setString(6, unitComboBox.getSelectedItem().toString());
             
-            rs = ps.executeQuery();
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "SUCCESSFUL!");
             
             DefaultTableModel tableModel = (DefaultTableModel) marksTable.getModel();
             
-            if(rs.next())
-            {
-                tableModel.addRow(new Object[]{regTxtShow.getText(), assignment, cat, exams, totalValue, Grade});
-                
-                JOptionPane.showMessageDialog(null, "SUCCESSFUL!");
-                
-                assignmentValue.setText("");
-                gradeTxt.setText("");
-                catValue.setText("");
-                assignmentValue.setText("");
-                totalLbl.setText("");
-                examValue.setText("");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "FAILED!");
-            }
+            tableModel.addRow(new Object[]{regTxtShow.getText().toString(), assignment, cat, exams, totalValue, Grade});
+            
+            assignmentValue.setText("");
+            gradeTxt.setText("");
+            catValue.setText("");
+            assignmentValue.setText("");
+            totalLbl.setText("");
+            examValue.setText("");
+            regTxtShow.setText("");
+            AddMarksBtn.setEnabled(false);
+            
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

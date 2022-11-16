@@ -23,7 +23,7 @@ public class NewStudent extends javax.swing.JFrame {
     
     String lastDigits, item, schoolID;
     
-    int incrementCode = 1;
+    int incrementCode;
     String code = "000";
     
     /**
@@ -32,10 +32,12 @@ public class NewStudent extends javax.swing.JFrame {
     public NewStudent() {
         initComponents();
         connection = ConnectionDatabase.DbConnection();
-        //DisplayStudentDetail();
+        
+        incrementCode++;
+        
+        DisplayStudentDetail();
         AddSchoolItems();
         AddCoursesItems();
-        AddDepartmentItems();
         AddCounties();
         ListOfYears();
     }
@@ -82,30 +84,30 @@ public class NewStudent extends javax.swing.JFrame {
         }
     }  
     
-    private void AddDepartmentItems()
+   /* private void AddDepartmentItems()
     {
-        String schools = "SELECT * FROM department";
+        String departments = "SELECT * FROM department";
         try {
             
-            ps = connection.prepareStatement(schools);
+            ps = connection.prepareStatement(departments);
             
             rs = ps.executeQuery();
         
             while(rs.next())
             {
-                Department.addItem(rs.getString("DptName"));
+                Department.addItem(rs.getString("DeptName"));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-    } 
+    } */
     
     private void AddCoursesItems()
     {
-        String schools = "SELECT * FROM department";
+        String courses = "SELECT * FROM course";
         try {
             
-            ps = connection.prepareStatement(schools);
+            ps = connection.prepareStatement(courses);
             
             rs = ps.executeQuery();
         
@@ -117,7 +119,7 @@ public class NewStudent extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     } 
-    void AddDepartments()
+    /*void AddDepartments()
     {
         String departments = "SELECT DeptName FROM department "
                     + "WHERE SchoolID = (SELECT SchoolID FROM school WHERE SchoolName = '" 
@@ -136,8 +138,8 @@ public class NewStudent extends javax.swing.JFrame {
         {
             
         }
-    }
-    private void AddCourses()
+    }*/
+    /*private void AddCourses()
     {
         String courses = "SELECT CourseName FROM course "
                     + "WHERE DeptID = (SELECT DeptID FROM department WHERE "
@@ -158,7 +160,7 @@ public class NewStudent extends javax.swing.JFrame {
         {
             
         }
-    }
+    }*/
     
     private void GetCourseDuration()
     {
@@ -217,8 +219,6 @@ public class NewStudent extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         schoolComboBox = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        Department = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         course = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
@@ -265,6 +265,11 @@ public class NewStudent extends javax.swing.JFrame {
                 IdNumberFieldActionPerformed(evt);
             }
         });
+        IdNumberField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                IdNumberFieldKeyTyped(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("KCSE AGP Grade");
@@ -285,20 +290,6 @@ public class NewStudent extends javax.swing.JFrame {
         schoolComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 schoolComboBoxActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Department");
-
-        Department.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                DepartmentItemStateChanged(evt);
-            }
-        });
-        Department.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DepartmentActionPerformed(evt);
             }
         });
 
@@ -363,6 +354,12 @@ public class NewStudent extends javax.swing.JFrame {
 
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Phone Number");
+
+        phoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phoneNumberKeyTyped(evt);
+            }
+        });
 
         genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE" }));
         genderComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -456,16 +453,13 @@ public class NewStudent extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(50, 50, 50)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(course, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Department, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(schoolComboBox, 0, 284, Short.MAX_VALUE))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -532,22 +526,14 @@ public class NewStudent extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(courseDurationLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(schoolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(Department, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel5)))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(course, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(courseDurationLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(course, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(schoolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(27, 27, 27)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(regNoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -621,6 +607,10 @@ public class NewStudent extends javax.swing.JFrame {
             
             //display success message else show an error message - fill all details
             
+            if(rs.next())
+            {
+                JOptionPane.showMessageDialog(null, "SUCcESSFULLY REGISTERED STUDENT");
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_createStudentBtnActionPerformed
@@ -635,7 +625,21 @@ public class NewStudent extends javax.swing.JFrame {
 
     private void schoolComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_schoolComboBoxItemStateChanged
         // TODO add your handling code here:
-        //AddDepartments();
+        String schools = "SELECT * FROM school where SchoolName = '" + schoolComboBox.getSelectedItem() + "'";
+        try {
+            
+            ps = connection.prepareStatement(schools);
+            
+            rs = ps.executeQuery();
+        
+            while(rs.next())
+            {
+                schoolID = rs.getString("SchoolID");
+                System.out.println(schoolID);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_schoolComboBoxItemStateChanged
 
     private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
@@ -661,19 +665,30 @@ public class NewStudent extends javax.swing.JFrame {
         DisplayStudentDetail();
     }//GEN-LAST:event_YearOfAdmissionActionPerformed
 
-    private void DepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepartmentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DepartmentActionPerformed
-
-    private void DepartmentItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DepartmentItemStateChanged
-
-        //AddCourses();
-    }//GEN-LAST:event_DepartmentItemStateChanged
-
     private void courseItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_courseItemStateChanged
         // TODO add your handling code here:
-        GetCourseDuration();
+        //GetCourseDuration();
     }//GEN-LAST:event_courseItemStateChanged
+
+    private void IdNumberFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IdNumberFieldKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c))
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_IdNumberFieldKeyTyped
+
+    private void phoneNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c))
+        {
+            evt.consume();
+        }
+    }//GEN-LAST:event_phoneNumberKeyTyped
 
     /**
      * @param args the command line arguments
@@ -711,7 +726,6 @@ public class NewStudent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> Department;
     private javax.swing.JTextField IdNumberField;
     private javax.swing.JComboBox<String> YearOfAdmission;
     private javax.swing.JComboBox<String> countyComboBox;
@@ -732,7 +746,6 @@ public class NewStudent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

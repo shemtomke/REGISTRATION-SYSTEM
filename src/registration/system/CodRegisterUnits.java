@@ -262,7 +262,7 @@ public class CodRegisterUnits extends javax.swing.JFrame {
     void PopulateStudentUnits()
     {
         //add students units from
-        String registeredUnits  = "SELECT * FROM unitregistration";
+        String registeredUnits  = "SELECT * FROM unitregistration WHERE status = 'Pending'";
         
         try {
             ps = ConnectionDatabase.DbConnection().prepareStatement(registeredUnits);
@@ -286,23 +286,19 @@ public class CodRegisterUnits extends javax.swing.JFrame {
     {
         //change the pending to approved
         //add students units from
-        String registeredUnits  = "UPDATE unitregistration SET Status = 'Approved' WHERE UnitRegID = ?";
+        String registeredUnits  = "UPDATE unitregistration SET Status = 'Approved'";
         
         try {
             ps = ConnectionDatabase.DbConnection().prepareStatement(registeredUnits);
             
-            ps.setString(1, "APPROVED!");
-            
-            rs = ps.executeQuery();
+            ps.executeUpdate(registeredUnits);
             
             DefaultTableModel tableModel = (DefaultTableModel) approvalTable.getModel();
             
-            while(rs.next())
-            {
-                JOptionPane.showMessageDialog(null,"APPROVED STUDENTS!");
-                
-            }
+            JOptionPane.showMessageDialog(null,"APPROVED STUDENTS!");
+            PopulateStudentUnits();
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     private void HOMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HOMEActionPerformed

@@ -346,8 +346,6 @@ public class StudentUnit extends javax.swing.JFrame {
         
         //if registered then populate all the data to the home portal.
         tableModel = (DefaultTableModel) tableUnits.getModel();
-
-        
         
         try 
         {
